@@ -407,21 +407,28 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
                 }
             },
 
-            // FIX: Tambahkan _t (Cache Buster) dan cache: 'no-store' agar tidak tertukar datanya
-            async fetchData(endpoint) {
-                if(APPS_SCRIPT_URL.includes("GANTI_DENGAN_URL")) { alert('TOLONG GANTI APPS_SCRIPT_URL DI KODE DENGAN URL WEB APP ANDA YANG ASLI AGAR DATABASE BERFUNGSI!'); return null; }
-                
-                // Tambahan "_t" memaksa browser mengunduh data segar setiap request, mengabaikan memori cache sebelumnya
-                const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}&_t=${new Date().getTime()}`;
-                try {
-                    const response = await fetch(url, { cache: 'no-store' });
-                    const data = await response.json();
-                    return data;
-                } catch (error) {
-                    console.error(error);
-                    return null;
-                }
-            }
+           // GANTI FUNGSI fetchData DI index.html DENGAN INI
+async fetchData(endpoint) {
+    if(APPS_SCRIPT_URL.includes("GANTI_DENGAN_URL")) { 
+        alert('Konfigurasi URL Apps Script belum diisi!'); 
+        return null; 
+    }
+    
+    // Memaksa request unik dengan timestamp (_t) agar data selalu fresh
+    const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}&_t=${Date.now()}`;
+    
+    try {
+        const response = await fetch(url, { 
+            method: 'GET',
+            cache: 'no-store', // Mencegah cache browser
+            headers: { 'Pragma': 'no-cache' }
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Gagal mengambil data:", error);
+        return null;
+    }
+}
         };
 
         window.onload = () => app.init();
