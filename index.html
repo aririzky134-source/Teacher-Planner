@@ -26,22 +26,10 @@
         ul { list-style: none; }
         button, input, select, textarea { border: none; outline: none; background: none; font-family: inherit; }
         
-        /* FIX: Memunculkan Icon Kalender di Dark Mode */
-        input[type="date"]{
-    background: #171717;
-    color: #ffffff;
-    color-scheme: dark;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator{
-    filter: brightness(0) invert(1);
-    opacity: 1;
-    cursor: pointer;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator:hover{
-    opacity: 1;
-}
+        /* Icon Kalender di Dark Mode */
+        input[type="date"] { color-scheme: dark; }
+        ::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; opacity: 0.7; transition: var(--transition); }
+        ::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 
         h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; }
         h2 { font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; }
@@ -51,8 +39,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
         .btn:hover { background-color: var(--primary-green-hover); }
         .btn-outline { background-color: transparent; border: 1px solid var(--border); color: var(--text-primary); }
         .btn-outline:hover { background-color: var(--bg-hover); border-color: var(--text-secondary); }
-        .btn-danger { background-color: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
-        .btn-danger:hover { background-color: var(--danger); color: white; }
         
         .input-group { margin-bottom: 16px; text-align: left;}
         .input-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
@@ -134,23 +120,20 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     <main class="screen active" id="welcome-screen">
         <img src="" alt="TCA Logo" class="welcome-logo" id="welcomeLogo">
         <div class="welcome-content">
-            <h1>Selamat datang di</h1>
-            <h2>Teacher Planner 2026/2027</h2>
-            <br> </br>
+            <h1>Teacher Planner 2026/2027</h1>
             <p>Sistem perencanaan terintegrasi khusus untuk Guru Kreatif Indonesia.</p>
-            <br> <br>
             <button class="btn" onclick="app.navigate('login-screen')">Mulai Sekarang <i class="fas fa-arrow-right"></i></button>
         </div>
     </main>
 
     <main class="screen" id="login-screen">
         <div class="card login-card">
-            <h2>Portal Cikgu</h2><br>
+            <h2>Portal Masuk</h2><br>
             <form onsubmit="app.handleLogin(event)">
-                <div class="input-group"><label>Nama Lengkap</label><input type="text" class="input-control" id="loginName" required placeholder="Budi Santoso S.Pd"></div>
-                <div class="input-group"><label>Email (Penting untuk Workspace Data)</label><input type="email" class="input-control" id="loginEmail" required placeholder="Teachercreator@gmail.com"></div>
-                <div class="input-group"><label>Kode Akses</label><input type="password" class="input-control" id="loginCode" required placeholder="Masukkan Kode Akses"></div>
-                <button type="submit" class="btn" style="width:100%; justify-content:center;">Klik disini CIkgu!</button>
+                <div class="input-group"><label>Nama Lengkap</label><input type="text" class="input-control" id="loginName" required></div>
+                <div class="input-group"><label>Email (Penting untuk Workspace Data)</label><input type="email" class="input-control" id="loginEmail" required></div>
+                <div class="input-group"><label>Kode Akses</label><input type="password" class="input-control" id="loginCode" required placeholder="TCA2026"></div>
+                <button type="submit" class="btn" style="width:100%; justify-content:center;">Masuk Workspace</button>
             </form>
         </div>
     </main>
@@ -159,7 +142,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
         <aside class="sidebar" id="sidebar">
             <div class="brand">
                 <img src="" alt="Logo" id="sidebarLogo">
-                <div><h3 style="font-size:1rem;">Teacher Planner</h3><span style="font-size:0.75rem; color:var(--text-secondary)">By Teacher Creator Academy</span></div>
+                <div><h3 style="font-size:1rem;">Teacher Planner</h3><span style="font-size:0.75rem; color:var(--text-secondary)">v.2.0.3 Stable</span></div>
             </div>
             <ul class="nav-menu" id="navMenu">
                 </ul>
@@ -179,16 +162,17 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     </main>
 
     <script>
-        const LOGO_URL = "assets/logo-tca.png"; 
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8CvNXuyOkbIBfZ1J5RVQdwIyYfJltoC-iC7XnNZEvasP3oeFa18jDfYAlGBqmgDvq/exec"; // <--- PASTE URL WEB APP ANDA DISINI
+        const LOGO_URL = "https://cdn-icons-png.flaticon.com/512/3285/3285116.png"; 
+        
+        // PENTING: Paste Web App URL Anda di sini
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8CvNXuyOkbIBfZ1J5RVQdwIyYfJltoC-iC7XnNZEvasP3oeFa18jDfYAlGBqmgDvq/exec"; 
         
         const app = {
             user: { name: null, email: null, safeEmail: null },
-            activeYear: '2026-2027', // Tetap ada di sistem backend tapi tidak di UI
+            activeYear: '2026-2027', 
             activeModule: 'overview',
             editingId: null,
 
-            // DYNAMIC MODULE DEFINITIONS
             modules: {
                 overview: { icon: 'fa-border-all', title: 'Dashboard', render: 'custom' },
                 kalender: { icon: 'fa-calendar-alt', title: 'Kalender Pendidikan', 
@@ -247,7 +231,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
                 const code = document.getElementById('loginCode').value;
                 if(code === 'TCA2026' || code === 'WebApp123') {
                     const email = document.getElementById('loginEmail').value;
-                    const safeEmail = email.replace(/[.#$[\]]/g, '_'); // Wajib Firebase
+                    const safeEmail = email.replace(/[.#$[\]]/g, '_'); 
                     this.user = { name: document.getElementById('loginName').value, email: email, safeEmail: safeEmail };
                     
                     localStorage.setItem('tca_session_v2', JSON.stringify(this.user));
@@ -283,7 +267,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
                 document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none'; 
             },
 
-            // CORE ENGINE: Dinamis Load Data
             async loadModule(key) {
                 this.activeModule = key;
                 document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -325,7 +308,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
                 const tBody = document.getElementById('tableBody');
                 tBody.innerHTML = '';
 
-                if(!data || Object.keys(data).length === 0) {
+                // CEK JIKA DATA KOSONG
+                if(!data || Object.keys(data).length === 0 || data.error) {
                     tBody.innerHTML = `<tr><td colspan="${fields.length + 1}" style="text-align:center; padding:32px; color:var(--text-secondary)"><i class="fas fa-folder-open" style="font-size:2rem; margin-bottom:10px;"></i><br>Belum ada data ${this.modules[key].title}.</td></tr>`;
                     return;
                 }
@@ -381,7 +365,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
                 
                 const url = `${APPS_SCRIPT_URL}?endpoint=${this.activeModule}&year=${this.activeYear}&email=${this.user.safeEmail}&action=create`;
                 try {
-                    const res = await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
+                    await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
                     this.showLoading(false);
                     this.showToast('Data berhasil disimpan!');
                     this.loadModule(this.activeModule); 
@@ -407,28 +391,26 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
                 }
             },
 
-           // GANTI FUNGSI fetchData DI index.html DENGAN INI
-async fetchData(endpoint) {
-    if(APPS_SCRIPT_URL.includes("GANTI_DENGAN_URL")) { 
-        alert('Konfigurasi URL Apps Script belum diisi!'); 
-        return null; 
-    }
-    
-    // Memaksa request unik dengan timestamp (_t) agar data selalu fresh
-    const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}&_t=${Date.now()}`;
-    
-    try {
-        const response = await fetch(url, { 
-            method: 'GET',
-            cache: 'no-store', // Mencegah cache browser
-            headers: { 'Pragma': 'no-cache' }
-        });
-        return await response.json();
-    } catch (error) {
-        console.error("Gagal mengambil data:", error);
-        return null;
-    }
-}
+            // FIX: FUNGSI GET DATA BEBAS CORS
+            async fetchData(endpoint) {
+                if(APPS_SCRIPT_URL.includes("GANTI_DENGAN_URL")) { 
+                    alert('URL APPS SCRIPT BELUM DIISI!'); 
+                    return null; 
+                }
+                
+                // _t memaksa browser mengambil data baru (bypass cache) tanpa menggunakan custom headers
+                const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}&_t=${new Date().getTime()}`;
+                
+                try {
+                    // Murni request GET standar. Tidak ada penambahan cache: no-store / headers yang memicu blokir CORS.
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error("Gagal menarik data:", error);
+                    return null;
+                }
+            }
         };
 
         window.onload = () => app.init();
