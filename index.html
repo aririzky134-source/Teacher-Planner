@@ -26,6 +26,20 @@
         ul { list-style: none; }
         button, input, select, textarea { border: none; outline: none; background: none; font-family: inherit; }
         
+        /* FIX: Memunculkan Icon Kalender di Dark Mode */
+        input[type="date"] {
+            color-scheme: dark; /* Memaksa popup kalender browser menjadi dark mode */
+        }
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(1); /* Mengubah icon hitam bawaan menjadi putih */
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+        ::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
         h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; }
         h2 { font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; }
         p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
@@ -117,20 +131,8 @@
     <main class="screen active" id="welcome-screen">
         <img src="" alt="TCA Logo" class="welcome-logo" id="welcomeLogo">
         <div class="welcome-content">
-            <h1 class="hero-title">
-    Teacher Planner<br>
-    2026/2027
-</h1>
-
-<p class="hero-description">
-    Ruang kerja digital untuk guru Indonesia.
-</p>
-
-<p class="hero-subtext">
-    Rencanakan pembelajaran, kelola agenda sekolah,
-    simpan refleksi mengajar, dan capai target akademik
-    dalam satu dashboard yang terorganisir.
-</p>
+            <h1>Teacher Planner 2026/2027</h1>
+            <p>Sistem perencanaan terintegrasi khusus untuk Guru Kreatif Indonesia.</p>
             <button class="btn" onclick="app.navigate('login-screen')">Mulai Sekarang <i class="fas fa-arrow-right"></i></button>
         </div>
     </main>
@@ -153,7 +155,6 @@
                 <img src="" alt="Logo" id="sidebarLogo">
                 <div><h3 style="font-size:1rem;">Teacher Planner</h3><span style="font-size:0.75rem; color:var(--text-secondary)">By Teacher Creator Academy</span></div>
             </div>
-            <div class="input-group"><select class="input-control" id="yearSelect" onchange="app.changeYear(this.value)"><option value="2026-2027">2026/2027</option></select></div>
             <ul class="nav-menu" id="navMenu">
                 </ul>
         </aside>
@@ -173,15 +174,15 @@
 
     <script>
         const LOGO_URL = "assets/logo-tca.png"; 
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8CvNXuyOkbIBfZ1J5RVQdwIyYfJltoC-iC7XnNZEvasP3oeFa18jDfYAlGBqmgDvq/exec"; // <--- PASTE URL WEB APP BARU DISINI
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8CvNXuyOkbIBfZ1J5RVQdwIyYfJltoC-iC7XnNZEvasP3oeFa18jDfYAlGBqmgDvq/exec"; // <--- PASTE URL WEB APP ANDA DISINI
         
         const app = {
             user: { name: null, email: null, safeEmail: null },
-            activeYear: '2026-2027',
+            activeYear: '2026-2027', // Tetap ada di sistem backend tapi tidak di UI
             activeModule: 'overview',
             editingId: null,
 
-            // DYNAMIC MODULE DEFINITIONS (MENDUKUNG SEMUA KEBUTUHAN ANDA)
+            // DYNAMIC MODULE DEFINITIONS
             modules: {
                 overview: { icon: 'fa-border-all', title: 'Dashboard', render: 'custom' },
                 kalender: { icon: 'fa-calendar-alt', title: 'Kalender Pendidikan', 
@@ -254,10 +255,27 @@
                 }
             },
 
-            logout() { localStorage.removeItem('tca_session_v2'); location.reload(); },
-            navigate(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); },
-            showToast(msg, err=false) { const t=document.getElementById('toastBox'); document.getElementById('toastMessage').innerText=msg; t.style.borderLeftColor=err?'var(--danger)':'var(--primary-green)'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); },
-            showLoading(show) { document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none'; },
+            logout() { 
+                localStorage.removeItem('tca_session_v2'); 
+                location.reload(); 
+            },
+
+            navigate(id) { 
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); 
+                document.getElementById(id).classList.add('active'); 
+            },
+            
+            showToast(msg, err=false) { 
+                const t=document.getElementById('toastBox'); 
+                document.getElementById('toastMessage').innerText=msg; 
+                t.style.borderLeftColor=err?'var(--danger)':'var(--primary-green)'; 
+                t.classList.add('show'); 
+                setTimeout(()=>t.classList.remove('show'),3000); 
+            },
+            
+            showLoading(show) { 
+                document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none'; 
+            },
 
             // CORE ENGINE: Dinamis Load Data
             async loadModule(key) {
@@ -274,7 +292,6 @@
                     return;
                 }
 
-                // Render Header Dynamic
                 container.innerHTML = `
                     <div class="section-header">
                         <h2>Data ${this.modules[key].title}</h2>
@@ -290,13 +307,11 @@
                     </div>
                 `;
 
-                // Build Table Headers from config
                 const fields = this.modules[key].fields;
                 const thRow = document.getElementById('tableHead');
                 fields.forEach(f => thRow.innerHTML += `<th>${f.label}</th>`);
                 thRow.innerHTML += `<th>Aksi</th>`;
 
-                // Fetch Real Data
                 this.showLoading(true);
                 const data = await this.fetchData(key);
                 this.showLoading(false);
@@ -309,7 +324,6 @@
                     return;
                 }
 
-                // Populate Rows
                 for(let id in data) {
                     const item = data[id];
                     let row = `<tr>`;
@@ -323,7 +337,6 @@
                 }
             },
 
-            // DYNAMIC MODAL GENERATOR
             openModal() {
                 this.editingId = null;
                 const mod = this.modules[this.activeModule];
@@ -350,7 +363,6 @@
 
             closeModal() { document.getElementById('formModalOverlay').classList.remove('active'); document.getElementById('dynamicForm').reset(); },
 
-            // SAVE DATA
             async saveData(e) {
                 e.preventDefault();
                 const mod = this.modules[this.activeModule];
@@ -361,20 +373,18 @@
                 this.closeModal();
                 this.showLoading(true);
                 
-                // Panggil fetch POST
                 const url = `${APPS_SCRIPT_URL}?endpoint=${this.activeModule}&year=${this.activeYear}&email=${this.user.safeEmail}&action=create`;
                 try {
                     const res = await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
                     this.showLoading(false);
                     this.showToast('Data berhasil disimpan!');
-                    this.loadModule(this.activeModule); // Reload realtime lokal
+                    this.loadModule(this.activeModule); 
                 } catch(err) {
                     this.showLoading(false);
                     this.showToast('Gagal menyimpan ke server', true);
                 }
             },
 
-            // DELETE DATA
             async deleteData(endpoint, id) {
                 if(confirm('Yakin menghapus data ini?')) {
                     this.showLoading(true);
@@ -383,7 +393,7 @@
                         await fetch(url, { method: 'POST' });
                         this.showLoading(false);
                         this.showToast('Data dihapus!');
-                        this.loadModule(this.activeModule); // Reload
+                        this.loadModule(this.activeModule); 
                     } catch(e) {
                         this.showLoading(false);
                         this.showToast('Gagal menghapus', true);
@@ -391,12 +401,14 @@
                 }
             },
 
-            // FETCH GET
+            // FIX: Tambahkan _t (Cache Buster) dan cache: 'no-store' agar tidak tertukar datanya
             async fetchData(endpoint) {
                 if(APPS_SCRIPT_URL.includes("GANTI_DENGAN_URL")) { alert('TOLONG GANTI APPS_SCRIPT_URL DI KODE DENGAN URL WEB APP ANDA YANG ASLI AGAR DATABASE BERFUNGSI!'); return null; }
-                const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}`;
+                
+                // Tambahan "_t" memaksa browser mengunduh data segar setiap request, mengabaikan memori cache sebelumnya
+                const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}&_t=${new Date().getTime()}`;
                 try {
-                    const response = await fetch(url);
+                    const response = await fetch(url, { cache: 'no-store' });
                     const data = await response.json();
                     return data;
                 } catch (error) {
