@@ -27,18 +27,21 @@
         button, input, select, textarea { border: none; outline: none; background: none; font-family: inherit; }
         
         /* FIX: Memunculkan Icon Kalender di Dark Mode */
-        input[type="date"] {
-            color-scheme: dark; /* Memaksa popup kalender browser menjadi dark mode */
-        }
-        ::-webkit-calendar-picker-indicator {
-            filter: invert(1); /* Mengubah icon hitam bawaan menjadi putih */
-            cursor: pointer;
-            opacity: 0.7;
-            transition: var(--transition);
-        }
-        ::-webkit-calendar-picker-indicator:hover {
-            opacity: 1;
-        }
+        input[type="date"]{
+    background: #171717;
+    color: #ffffff;
+    color-scheme: dark;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+    filter: brightness(0) invert(1);
+    opacity: 1;
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover{
+    opacity: 1;
+}
 
         h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; }
         h2 { font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; }
