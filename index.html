@@ -3,1461 +3,586 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Planner 2026/2027 by TCA</title>
-    <meta name="description" content="Dashboard perencanaan mengajar premium untuk Teacher Creator Academy.">
-    <meta name="theme-color" content="#090909">
+    <title>Teacher Planner 2026/2027 | Teacher Creator Academy</title>
     
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
-
-    <!-- Favicon (Dynamic logo injection will handle fallback, using basic dot here for standard base) -->
-    <link rel="icon" href="assets/logo-tca.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <meta name="theme-color" content="#090909">
+    <link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;Teacher Planner&quot;,&quot;short_name&quot;:&quot;Planner&quot;,&quot;start_url&quot;:&quot;/&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#090909&quot;,&quot;theme_color&quot;:&quot;#090909&quot;}">
 
     <style>
+        /* DESIGN SYSTEM - THE NOTION WAY */
         :root {
-            /* Core Brand Colors */
-            --bg-base: #090909;
-            --bg-surface: #171717;
-            --bg-surface-glass: rgba(23, 23, 23, 0.65);
-            --primary: #5A9B33;
-            --primary-hover: #4a8228;
-            --accent: #F4B41A;
-            --accent-hover: #dca012;
-            --danger: #ef4444;
-            
-            /* Text Colors */
+            /* Colors */
+            --bg-main: #090909;
+            --bg-card: #171717;
+            --bg-hover: #222222;
+            --primary-green: #5A9B33;
+            --primary-green-hover: #488028;
+            --accent-gold: #F4B41A;
             --text-primary: #FFFFFF;
             --text-secondary: #A1A1AA;
-            --text-tertiary: #52525B;
+            --border: rgba(255, 255, 255, 0.08);
+            --danger: #ef4444;
             
-            /* UI Elements */
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(255, 255, 255, 0.15);
+            /* Typography (Diperbarui ke Inter) */
+            --font-main: 'Inter', sans-serif;
+            
+            /* Spacing & Radius */
             --radius-sm: 8px;
             --radius-md: 16px;
             --radius-lg: 24px;
-            --radius-full: 9999px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
             
-            /* Shadows */
-            --shadow-glow: 0 0 20px rgba(90, 155, 51, 0.15);
-            --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            
-            /* Typography */
-            --font-family: 'Poppins', sans-serif;
-            
-            /* Layout */
-            --sidebar-width: 280px;
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: var(--font-family);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 600;
-            line-height: 1.2;
-        }
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
+        body { background-color: var(--bg-main); color: var(--text-primary); overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button, input, select, textarea { border: none; outline: none; background: none; font-family: inherit; }
         
-        p {
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        button {
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-family: inherit;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px 16px;
-            background-color: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(90, 155, 51, 0.2);
-        }
+        /* Typography System */
+        h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; }
+        p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
         
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
+        /* Shared Components */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: var(--radius-full);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+            background-color: var(--primary-green); color: white; padding: 12px 24px;
+            border-radius: var(--radius-sm); font-weight: 500; cursor: pointer;
+            transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
         }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(90, 155, 51, 0.2);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(90, 155, 51, 0.3);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--border-glass);
-            color: var(--text-primary);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary);
-            background-color: rgba(90, 155, 51, 0.05);
-        }
+        .btn:hover { background-color: var(--primary-green-hover); transform: translateY(-2px); }
+        .btn-outline { background-color: transparent; border: 1px solid var(--border); color: var(--text-primary); }
+        .btn-outline:hover { background-color: var(--bg-hover); border-color: var(--text-secondary); }
         
-        .btn-danger {
-            background-color: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.2);
+        .input-group { margin-bottom: 16px; }
+        .input-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
+        .input-control {
+            width: 100%; background: var(--bg-main); border: 1px solid var(--border);
+            color: var(--text-primary); padding: 12px 16px; border-radius: var(--radius-sm);
+            transition: var(--transition);
         }
+        .input-control:focus { border-color: var(--primary-green); box-shadow: 0 0 0 2px rgba(90, 155, 51, 0.2); }
+
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-md); padding: var(--spacing-lg);
+            transition: var(--transition);
+        }
+
+        /* Screen Management */
+        .screen { display: none; min-height: 100vh; animation: fadeIn 0.5s ease; }
+        .screen.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 1. WELCOME SCREEN */
+        #welcome-screen { flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .welcome-logo { width: 120px; height: auto; margin-bottom: 24px; object-fit: contain; }
+        .welcome-content { max-width: 600px; }
+        .welcome-content h1 { margin-bottom: 16px; }
+        .welcome-content p { margin-bottom: 32px; font-size: 1.1rem; }
+
+        /* 2. LOGIN SCREEN */
+        #login-screen { align-items: center; justify-content: center; padding: 20px; }
+        .login-card { width: 100%; max-width: 400px; text-align: center; }
+        .login-logo { width: 90px; margin-bottom: 24px; }
+        .login-card h2 { margin-bottom: 8px; }
+        .login-card p { margin-bottom: 24px; }
+
+        /* 3. DASHBOARD */
+        #dashboard-screen { flex-direction: row; align-items: stretch; }
         
-        .btn-danger:hover {
-            background-color: var(--danger);
-            color: white;
-        }
-
-        .glass-card {
-            background: var(--bg-surface-glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            box-shadow: var(--shadow-glass);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .glass-card:hover {
-            border-color: var(--border-hover);
-        }
-
-        #auth-container {
-            display: flex;
-            min-height: 100vh;
-            width: 100vw;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            background: var(--bg-base);
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .auth-left {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Subtle glowing background effect */
-        .auth-left::before {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(90,155,51,0.15) 0%, rgba(9,9,9,0) 70%);
-            top: -100px;
-            left: -100px;
-            z-index: 0;
-        }
-        .auth-left::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(244,180,26,0.1) 0%, rgba(9,9,9,0) 70%);
-            bottom: -50px;
-            right: -50px;
-            z-index: 0;
-        }
-
-        .auth-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 500px;
-        }
-
-        .auth-logo {
-            width: 120px;
-            height: auto;
-            margin-bottom: 32px;
-            filter: drop-shadow(0 4px 12px rgba(255,255,255,0.1));
-            transition: width 0.3s ease;
-        }
-
-        .auth-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .auth-right {
-            width: 450px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            background: var(--bg-surface);
-            border-left: 1px solid var(--border-glass);
-            transform: translateX(100%);
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        #auth-container.show-login .auth-right {
-            transform: translateX(0);
-        }
-        #auth-container.show-login .welcome-content {
-            display: none;
-        }
-        #auth-container.show-login .auth-logo {
-            width: 90px;
-        }
-
-        .login-box {
-            width: 100%;
-            max-width: 360px;
-        }
-        
-        .login-box h3 {
-            margin-bottom: 24px;
-            font-size: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        #app-dashboard {
-            display: flex;
-            min-height: 100vh;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease;
-        }
-
-        #app-dashboard.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Floating Sidebar */
+        /* Sidebar */
         .sidebar {
-            width: var(--sidebar-width);
-            background: var(--bg-surface-glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-right: 1px solid var(--border-glass);
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 100;
-            transition: transform 0.3s ease;
+            width: 280px; background: var(--bg-card); border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; padding: var(--spacing-md); height: 100vh;
+            position: sticky; top: 0;
         }
-
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .sidebar-logo {
-            width: 48px;
-            height: auto;
-        }
-
-        .sidebar-brand {
-            font-size: 1rem;
-            font-weight: 600;
-            line-height: 1.2;
-        }
+        .brand { display: flex; align-items: center; gap: 12px; padding: 12px; margin-bottom: 24px; }
+        .brand img { width: 48px; height: 48px; object-fit: contain; }
+        .brand-text h2 { font-size: 1rem; color: var(--text-primary); }
+        .brand-text span { font-size: 0.75rem; color: var(--text-secondary); }
         
-        .sidebar-brand span {
-            display: block;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            flex: 1;
-            overflow-y: auto;
-        }
-        
-        /* Custom Scrollbar for Sidebar */
-        .sidebar-nav::-webkit-scrollbar {
-            width: 4px;
-        }
-        .sidebar-nav::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-        }
-
+        .nav-menu { flex: 1; overflow-y: auto; }
         .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border-radius: var(--radius-md);
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-weight: 500;
-            font-size: 0.95rem;
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+            color: var(--text-secondary); border-radius: var(--radius-sm);
+            margin-bottom: 4px; cursor: pointer; transition: var(--transition); font-weight: 500;
         }
-
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-        }
-
-        .nav-item.active {
-            background: rgba(90, 155, 51, 0.1);
-            color: var(--primary);
-            border: 1px solid rgba(90, 155, 51, 0.2);
-        }
+        .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+        .nav-item.active { background: rgba(90, 155, 51, 0.1); color: var(--primary-green); }
         
-        .nav-item .material-symbols-rounded {
-            font-size: 20px;
-        }
+        .year-selector { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border); }
 
-        .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            padding: 32px 48px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .top-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border-glass);
-        }
-
-        .header-search {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .header-search input {
-            padding-left: 44px;
-            border-radius: var(--radius-full);
-            background: var(--bg-surface);
-        }
-
-        .header-search .material-symbols-rounded {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .year-selector select {
-            background: transparent;
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-full);
-            padding: 8px 16px;
-            color: var(--accent);
-            font-weight: 600;
-            appearance: none;
-            cursor: pointer;
-        }
-
-        .profile-menu {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .profile-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: white;
-        }
+        /* Main Content */
+        .main-content { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
         
-        .header-logo {
-            width: 32px;
-            height: auto;
-            display: none; /* Only show on mobile */
+        /* Header */
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 24px 32px; border-bottom: 1px solid var(--border); background: var(--bg-main);
+            position: sticky; top: 0; z-index: 10;
         }
-
-        .view-section {
-            display: none;
-            animation: fadeIn 0.4s ease forwards;
+        .header-search { position: relative; width: 300px; }
+        .header-search i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+        .header-search input { padding-left: 48px; border-radius: 20px; background: var(--bg-card); border: 1px solid transparent; }
+        .header-search input:focus { border-color: var(--border); }
+        .header-profile { display: flex; align-items: center; gap: 16px; font-weight: 500; }
+        
+        /* Page Content */
+        .page-content { padding: 32px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        
+        /* Bento Grid (Overview) */
+        .bento-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px; margin-bottom: 32px;
         }
-        .view-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .view-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        /* Grid Layouts */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .stat-card {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
+        .stat-card { display: flex; align-items: center; gap: 16px; }
         .stat-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: var(--radius-md);
-            background: rgba(255,255,255,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
+            width: 48px; height: 48px; border-radius: 12px; display: flex;
+            align-items: center; justify-content: center; font-size: 1.5rem;
         }
-        .stat-icon.green { color: var(--primary); background: rgba(90, 155, 51, 0.1); }
-        .stat-icon.gold { color: var(--accent); background: rgba(244, 180, 26, 0.1); }
-        .stat-icon.blue { color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
-        .stat-icon.purple { color: #8b5cf6; background: rgba(139, 92, 246, 0.1); }
-
-        .stat-details h4 {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        .stat-details p {
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        /* Data Tables */
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            background: var(--bg-surface);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-glass);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-        th, td {
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--border-glass);
-        }
-        th {
-            background: rgba(255,255,255,0.02);
-            font-weight: 500;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        tr:last-child td { border-bottom: none; }
-        tr:hover td { background: rgba(255,255,255,0.02); }
+        .icon-green { background: rgba(90, 155, 51, 0.1); color: var(--primary-green); }
+        .icon-gold { background: rgba(244, 180, 26, 0.1); color: var(--accent-gold); }
+        .icon-blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
         
+        .stat-info h3 { font-size: 1.5rem; color: var(--text-primary); }
+        .stat-info p { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* Data Tables / Lists */
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .data-table th, .data-table td { padding: 16px; border-bottom: 1px solid var(--border); }
+        .data-table th { color: var(--text-secondary); font-weight: 500; font-size: 0.85rem; }
         .badge {
-            padding: 4px 10px;
-            border-radius: var(--radius-full);
-            font-size: 0.8rem;
-            font-weight: 500;
+            padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 500;
         }
-        .badge-high { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
-        .badge-medium { background: rgba(245, 158, 11, 0.15); color: #fcd34d; }
-        .badge-low { background: rgba(52, 211, 153, 0.15); color: #6ee7b7; }
-        .badge-done { background: rgba(90, 155, 51, 0.15); color: var(--primary); text-decoration: line-through;}
+        .badge.high { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+        .badge.medium { background: rgba(244, 180, 26, 0.1); color: var(--accent-gold); }
+        .badge.low { background: rgba(90, 155, 51, 0.1); color: var(--primary-green); }
 
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(4px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1; visibility: visible;
-        }
-        .modal-content {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-lg);
-            width: 90%;
-            max-width: 500px;
-            padding: 32px;
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        /* Toast */
-        #toast-container {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 3000;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        /* Modals, Toast, Loading */
         .toast {
-            background: var(--bg-surface-glass);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-glass);
-            color: white;
-            padding: 16px 24px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-glass);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transform: translateX(120%);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: fixed; bottom: 24px; right: 24px; background: var(--bg-card);
+            border: 1px solid var(--border); padding: 16px 24px; border-radius: var(--radius-sm);
+            display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transform: translateX(120%); transition: var(--transition); z-index: 1000;
         }
         .toast.show { transform: translateX(0); }
-        .toast-success i { color: var(--primary); }
-        .toast-error i { color: var(--danger); }
-
-        /* Loading */
-        #global-loading {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: var(--bg-base);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-        }
-        #global-loading.active {
-            opacity: 1; visibility: visible;
+        
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(9, 9, 9, 0.8); backdrop-filter: blur(4px);
+            display: none; justify-content: center; align-items: center; z-index: 9999; flex-direction: column; gap: 16px;
         }
         .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid var(--border-glass);
-            border-top-color: var(--primary);
-            border-radius: 50%;
+            width: 40px; height: 40px; border: 3px solid var(--border);
+            border-top-color: var(--primary-green); border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 16px;
         }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        
+        @keyframes spin { to { transform: rotate(360deg); } }
+
         /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 48px 24px;
-            color: var(--text-secondary);
-        }
-        .empty-state span.material-symbols-rounded {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
+        .empty-state { text-align: center; padding: 48px; color: var(--text-secondary); }
+        .empty-state i { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
 
-        .mobile-menu-btn {
-            display: none;
-            color: var(--text-primary);
-        }
-
-        @media (max-width: 1024px) {
-            .auth-right { width: 400px; }
-            .auth-title { font-size: 2.5rem; }
-            
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            .sidebar.open {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-                padding: 24px;
-            }
-            .mobile-menu-btn {
-                display: block;
-            }
-            .header-logo {
-                display: block;
-            }
-            .top-header { gap: 16px; flex-wrap: wrap; }
-            .header-search { order: 3; max-width: 100%; margin-top: 16px;}
-        }
-
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            #auth-container { flex-direction: column; }
-            .auth-left { padding: 32px 24px; }
-            .auth-right { width: 100%; height: 100%; border-left: none; border-top: 1px solid var(--border-glass); transform: translateY(100%); }
-            #auth-container.show-login .auth-right { transform: translateY(0); }
-            
-            .dashboard-grid { grid-template-columns: 1fr; }
-            
-            .hide-mobile { display: none; }
+            #dashboard-screen { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: static; display: none; }
+            .sidebar.mobile-open { display: flex; position: fixed; z-index: 100; height: 100vh; }
+            .header-search { display: none; }
+            .mobile-menu-btn { display: block !important; }
         }
+        .mobile-menu-btn { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
 
+        /* Print CSS for Export PDF */
         @media print {
             body { background: white; color: black; }
-            .sidebar, .top-header, .btn, #toast-container, .mobile-menu-btn { display: none !important; }
-            .main-content { margin: 0; padding: 0; }
-            .glass-card, .table-container { 
-                background: white; 
-                border: 1px solid #ccc; 
-                box-shadow: none; 
-                color: black;
-            }
-            h1, h2, h3, h4, p, th, td, .nav-item { color: black !important; }
-            table { width: 100%; border: 1px solid #000; }
-            th, td { border: 1px solid #000 !important; }
-            @page { margin: 2cm; }
+            .sidebar, .header, .btn, .header-search { display: none !important; }
+            .card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; }
+            * { color: black !important; }
         }
     </style>
 </head>
 <body>
 
-    <div id="global-loading">
+    <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
-        <p style="color: var(--text-secondary);">Memuat data...</p>
+        <p>Memproses data...</p>
     </div>
 
-    <div id="toast-container"></div>
+    <div class="toast" id="toastBox">
+        <i class="fas fa-info-circle icon-green" style="background:none; font-size: 1.2rem;"></i>
+        <span id="toastMessage">Notifikasi sistem</span>
+    </div>
 
-    <div id="confirmation-dialog" class="modal-overlay">
-        <div class="modal-content">
-            <h3 id="confirm-title">Konfirmasi</h3>
-            <p id="confirm-message" style="margin: 16px 0; color: var(--text-secondary);"></p>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="UI.closeConfirm()">Batal</button>
-                <button class="btn btn-danger" id="confirm-yes-btn">Ya, Hapus</button>
-            </div>
+    <main class="screen active" id="welcome-screen">
+        <img src="" alt="TCA Logo" class="welcome-logo" id="welcomeLogo">
+        <div class="welcome-content">
+            <h1>Selamat Datang di Teacher Planner 2026/2027</h1>
+            <p>Tempat seluruh perencanaan mengajar Anda tersusun rapi dalam satu dashboard eksklusif. By Teacher Creator Academy.</p>
+            <button class="btn" onclick="app.navigate('login-screen')">
+                Mulai Sekarang <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
-    </div>
+    </main>
 
-    <!-- Modal Form Generic -->
-    <div id="generic-modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modal-title">Form</h3>
-                <button onclick="UI.closeModal()" style="color: var(--text-secondary);"><span class="material-symbols-rounded">close</span></button>
-            </div>
-            <form id="generic-form">
-                <div id="form-fields"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline" onclick="UI.closeModal()">Batal</button>
-                    <button type="submit" class="btn btn-primary" id="modal-submit-btn">Simpan</button>
+    <main class="screen" id="login-screen">
+        <div class="card login-card">
+            <img src="" alt="TCA Logo" class="login-logo" id="loginLogo">
+            <h2>Portal Guru</h2>
+            <p>Silakan lengkapi data untuk masuk</p>
+            
+            <form id="loginForm" onsubmit="app.handleLogin(event)">
+                <div class="input-group text-left">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="input-control" id="loginName" required placeholder="Contoh: Budi Santoso">
                 </div>
+                <div class="input-group text-left">
+                    <label>Email</label>
+                    <input type="email" class="input-control" id="loginEmail" required placeholder="budi@sekolah.id">
+                </div>
+                <div class="input-group text-left">
+                    <label>Kode Akses</label>
+                    <input type="password" class="input-control" id="loginCode" required placeholder="TCA2026">
+                </div>
+                <button type="submit" class="btn" style="width: 100%; justify-content: center; margin-top: 8px;">
+                    Masuk Dashboard
+                </button>
             </form>
         </div>
-    </div>
+    </main>
 
-    <div id="auth-container">
-        <div class="auth-left">
-            <div class="auth-content welcome-content">
-                <img src="" alt="TCA Logo" class="auth-logo dynamic-logo">
-                <h1 class="auth-title">Teacher Planner<br>2026/2027</h1>
-                <p style="margin-bottom: 32px; font-size: 1.1rem; max-width: 400px; margin-inline: auto;">
-                    Tempat seluruh perencanaan mengajar Anda tersusun rapi dalam satu dashboard.
-                </p>
-                <button class="btn btn-primary" style="padding: 16px 32px; font-size: 1.1rem;" onclick="document.getElementById('auth-container').classList.add('show-login')">
-                    Mulai Sekarang <span class="material-symbols-rounded">arrow_forward</span>
-                </button>
-            </div>
-            
-            <div class="auth-content" style="display: none;" id="login-logo-container">
-                <img src="" alt="TCA Logo" class="auth-logo dynamic-logo" style="margin-bottom: 0;">
-                <p style="margin-top: 16px;">By Teacher Creator Academy</p>
-            </div>
-        </div>
+    <main class="screen" id="dashboard-screen">
         
-        <div class="auth-right">
-            <div class="login-box glass-card">
-                <h3>Masuk ke Dashboard</h3>
-                <form id="login-form">
-                    <div class="form-group">
-                        <label>Email / Username</label>
-                        <input type="text" id="login-user" required placeholder="Masukkan email anda">
-                    </div>
-                    <div class="form-group">
-                        <label>Kode Akses</label>
-                        <input type="password" id="login-pass" required placeholder="Masukkan Kode Akses Cikgu">
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Masuk</button>
-                </form>
-                <button class="btn btn-outline" style="width: 100%; margin-top: 16px; border: none;" onclick="document.getElementById('auth-container').classList.remove('show-login')">
-                    Kembali
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="app-dashboard">
         <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <img src="" alt="TCA Logo" class="sidebar-logo dynamic-logo">
-                <div class="sidebar-brand">
-                    Teacher Planner
-                    <span>2026/2027</span>
+            <div class="brand">
+                <img src="" alt="TCA Logo" id="sidebarLogo">
+                <div class="brand-text">
+                    <h2>Teacher Planner</h2>
+                    <span>Teacher Creator Academy</span>
                 </div>
             </div>
-            
-            <nav class="sidebar-nav" id="main-nav">
-                <a href="#dashboard" class="nav-item active" data-view="dashboard"><span class="material-symbols-rounded">space_dashboard</span> Dashboard</a>
-                <div style="margin: 16px 0 8px 16px; font-size: 0.75rem; color: var(--text-tertiary); letter-spacing: 1px;">PLANNING</div>
-                <a href="#kalender" class="nav-item" data-view="kalender"><span class="material-symbols-rounded">calendar_month</span> Kalender Pendidikan</a>
-                <a href="#target" class="nav-item" data-view="target"><span class="material-symbols-rounded">flag</span> Target Mengajar</a>
-                <a href="#jadwal" class="nav-item" data-view="jadwal"><span class="material-symbols-rounded">schedule</span> Jadwal Mengajar</a>
-                <a href="#todo" class="nav-item" data-view="todo"><span class="material-symbols-rounded">task_alt</span> To Do Guru</a>
-                
-                <div style="margin: 16px 0 8px 16px; font-size: 0.75rem; color: var(--text-tertiary); letter-spacing: 1px;">MANAGEMENT</div>
-                <a href="#catatan" class="nav-item" data-view="catatan"><span class="material-symbols-rounded">sticky_note_2</span> Catatan Penting</a>
-                <a href="#rapat" class="nav-item" data-view="rapat"><span class="material-symbols-rounded">groups</span> Agenda Rapat</a>
-                <a href="#refleksi" class="nav-item" data-view="refleksi"><span class="material-symbols-rounded">psychology</span> Refleksi Mengajar</a>
-                
-                <div style="margin: 16px 0 8px 16px; font-size: 0.75rem; color: var(--text-tertiary); letter-spacing: 1px;">CREATOR</div>
-                <a href="#ide" class="nav-item" data-view="ide"><span class="material-symbols-rounded">lightbulb</span> Ide Konten Guru</a>
-                <a href="#arsip" class="nav-item" data-view="arsip"><span class="material-symbols-rounded">archive</span> Arsip Tahunan</a>
-            </nav>
+
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="app.switchTab('overview')"><i class="fas fa-border-all"></i> Dashboard</li>
+                <li class="nav-item" onclick="app.switchTab('kalender')"><i class="fas fa-calendar-alt"></i> Kalender Pendidikan</li>
+                <li class="nav-item" onclick="app.switchTab('target')"><i class="fas fa-bullseye"></i> Target Mengajar</li>
+                <li class="nav-item" onclick="app.switchTab('jadwal')"><i class="fas fa-clock"></i> Jadwal Mengajar</li>
+                <li class="nav-item" onclick="app.switchTab('todo')"><i class="fas fa-check-square"></i> To Do Guru</li>
+                <li class="nav-item" onclick="app.switchTab('catatan')"><i class="fas fa-sticky-note"></i> Catatan Penting</li>
+                <li class="nav-item" onclick="app.switchTab('rapat')"><i class="fas fa-users"></i> Agenda Rapat</li>
+                <li class="nav-item" onclick="app.switchTab('refleksi')"><i class="fas fa-brain"></i> Refleksi Mengajar</li>
+                <li class="nav-item" onclick="app.switchTab('konten')"><i class="fas fa-lightbulb"></i> Ide Konten Guru</li>
+                <li class="nav-item" onclick="app.switchTab('arsip')"><i class="fas fa-archive"></i> Arsip Tahunan</li>
+            </ul>
+
+            <div class="year-selector">
+                <div class="input-group" style="margin:0;">
+                    <label>Tahun Ajaran Aktif</label>
+                    <select class="input-control" id="yearSelect" onchange="app.changeYear(this.value)">
+                        <option value="2026/2027">2026/2027</option>
+                        <option value="2027/2028">2027/2028</option>
+                    </select>
+                </div>
+            </div>
         </aside>
 
-        <main class="main-content">
-            <header class="top-header">
-                <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
-                    <span class="material-symbols-rounded">menu</span>
-                </button>
-                <img src="" alt="TCA Logo" class="header-logo dynamic-logo">
-                
+        <div class="main-content">
+            <header class="header">
+                <i class="fas fa-bars mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')"></i>
                 <div class="header-search">
-                    <span class="material-symbols-rounded">search</span>
-                    <input type="text" id="global-search" placeholder="Cari agenda, catatan, tugas...">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="input-control" placeholder="Cari agenda, tugas, catatan..." onkeyup="app.globalSearch(this.value)">
                 </div>
-                
-                <div class="header-actions">
-                    <div class="year-selector">
-                        <select id="academic-year-select">
-                            <option value="2026-2027">2026/2027</option>
-                            <option value="2027-2028">2027/2028</option>
-                            <option value="2028-2029">2028/2029</option>
-                        </select>
-                    </div>
-                    <div class="profile-menu">
-                        <div class="profile-avatar hide-mobile">G</div>
-                        <div class="hide-mobile">
-                            <div style="font-size: 0.9rem; font-weight: 500;">Guru Aktif</div>
-                            <div style="font-size: 0.75rem; color: var(--text-secondary);">TCA Member</div>
-                        </div>
-                        <button onclick="Auth.logout()" class="btn btn-outline" style="padding: 8px; margin-left: 8px;" title="Logout">
-                            <span class="material-symbols-rounded">logout</span>
-                        </button>
-                    </div>
+                <div class="header-profile">
+                    <button class="btn-outline" style="padding: 8px; border-radius: 50%; width: 40px; height: 40px;" onclick="window.print()">
+                        <i class="fas fa-print"></i>
+                    </button>
+                    <span id="userNameDisplay">Guru Hebat</span>
+                    <button class="btn btn-outline" onclick="app.logout()">Logout</button>
                 </div>
             </header>
 
-            <div id="views-container">
-                <!-- Dashboard Overview -->
-                <section id="view-dashboard" class="view-section active">
-                    <div class="view-header">
-                        <div>
-                            <h2 style="font-size: 1.8rem; margin-bottom: 4px;">Dashboard Overview</h2>
-                            <p>Ringkasan aktivitas dan target mengajar Anda.</p>
-                        </div>
-                        <button class="btn btn-outline hide-mobile" onclick="window.print()"><span class="material-symbols-rounded">print</span> Cetak Laporan</button>
-                    </div>
-
-                    <div class="dashboard-grid">
-                        <div class="glass-card stat-card">
-                            <div class="stat-icon green"><span class="material-symbols-rounded">event</span></div>
-                            <div class="stat-details"><h4>Agenda Bulan Ini</h4><p id="stat-agenda">0</p></div>
-                        </div>
-                        <div class="glass-card stat-card">
-                            <div class="stat-icon gold"><span class="material-symbols-rounded">task_alt</span></div>
-                            <div class="stat-details"><h4>Tugas Selesai</h4><p id="stat-task">0</p></div>
-                        </div>
-                        <div class="glass-card stat-card">
-                            <div class="stat-icon blue"><span class="material-symbols-rounded">sticky_note_2</span></div>
-                            <div class="stat-details"><h4>Catatan Aktif</h4><p id="stat-note">0</p></div>
-                        </div>
-                        <div class="glass-card stat-card">
-                            <div class="stat-icon purple"><span class="material-symbols-rounded">flag</span></div>
-                            <div class="stat-details"><h4>Target Semester</h4><p id="stat-target">0</p></div>
-                        </div>
-                    </div>
-                    
-                    <div class="glass-card" style="margin-bottom: 24px;">
-                        <h3 style="margin-bottom: 16px;">Tugas Mendekati Deadline</h3>
-                        <div class="table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Tugas</th>
-                                        <th>Prioritas</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="dashboard-todo-preview">
-                                    <tr><td colspan="3" class="empty-state">Belum ada data tugas.</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Dynamic Container for other features -->
-                <section id="view-dynamic" class="view-section">
-                    <div class="view-header">
-                        <div>
-                            <h2 id="dynamic-title" style="font-size: 1.8rem; margin-bottom: 4px;">Title</h2>
-                            <p id="dynamic-desc">Description</p>
-                        </div>
-                        <button class="btn btn-primary" id="dynamic-add-btn"><span class="material-symbols-rounded">add</span> Tambah Data</button>
-                    </div>
-                    
-                    <div id="dynamic-content">
-                        <!-- Table or Grid will be injected here by JS -->
-                    </div>
-                </section>
-            </div>
-        </main>
-    </div>
+            <div class="page-content" id="contentArea">
+                </div>
+        </div>
+    </main>
 
     <script>
-        // --- CONFIGURATION ---
-        const CONFIG = {
-            LOGO_URL: "assets/logo-tca.png",
-            // TODO: GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-            GAS_URL: "https://script.google.com/macros/s/AKfycbyIo1VBtq_Jkd0iTogxrSbUhJgVvK0ExOfuPIzOuyHrrsm8v_V5sHjJaBDwbGvf1O3C/exec", 
-            ACCESS_CODE: "TCA2026"
-        };
+        /**
+         * GLOBAL CONFIGURATION
+         * JANGAN HAPUS URL INI KETIKA REVISI.
+         */
+        const LOGO_URL = "assets/logo-tca.png"; // Fallback URL (Ganti dengan URL resmi TCA)
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8CvNXuyOkbIBfZ1J5RVQdwIyYfJltoC-iC7XnNZEvasP3oeFa18jDfYAlGBqmgDvq/exec"; // Wajib diisi setelah deploy Apps Script
+        
+        // App State Management
+        const app = {
+            currentUser: null,
+            activeYear: '2026/2027',
+            
+            init() {
+                this.setupLogos();
+                this.checkSession();
+            },
 
-        // Inject Logo
-        document.querySelectorAll('.dynamic-logo').forEach(img => {
-            img.src = CONFIG.LOGO_URL;
-            img.onerror = () => { img.style.display = 'none'; }; // Hide gracefully if broken
-        });
+            setupLogos() {
+                document.getElementById('welcomeLogo').src = LOGO_URL;
+                document.getElementById('loginLogo').src = LOGO_URL;
+                document.getElementById('sidebarLogo').src = LOGO_URL;
+            },
 
-        // --- STATE MANAGEMENT ---
-        const State = {
-            isLoggedIn: localStorage.getItem('tca_logged_in') === 'true',
-            currentYear: document.getElementById('academic-year-select').value,
-            currentView: 'dashboard',
-            data: {
-                kalender: {}, target: {}, jadwal: {}, todo: {}, 
-                catatan: {}, rapat: {}, refleksi: {}, ide: {}
-            }
-        };
+            navigate(screenId) {
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                document.getElementById(screenId).classList.add('active');
+            },
 
-        // --- SCHEMAS FOR DATA-DRIVEN UI ---
-        // Mendefinisikan struktur data untuk setiap fitur agar UI bisa digenerate secara otomatis
-        const Schemas = {
-            kalender: {
-                title: "Kalender Pendidikan", desc: "Kelola kegiatan akademik dan administrasi sekolah.",
-                fields: [
-                    { id: 'nama', label: 'Nama Kegiatan', type: 'text', required: true },
-                    { id: 'tanggal', label: 'Tanggal', type: 'date', required: true },
-                    { id: 'kategori', label: 'Kategori', type: 'select', options: ['Akademik', 'Administrasi', 'Rapat', 'Pribadi'] }
-                ],
-                columns: ['nama', 'tanggal', 'kategori']
+            showLoading(show) {
+                document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
             },
-            target: {
-                title: "Target Mengajar", desc: "Tetapkan target tahunan, semester, dan bulanan.",
-                fields: [
-                    { id: 'judul', label: 'Judul Target', type: 'text', required: true },
-                    { id: 'jenis', label: 'Jenis Target', type: 'select', options: ['Tahunan', 'Semester', 'Bulanan'] },
-                    { id: 'deadline', label: 'Deadline', type: 'date', required: true },
-                    { id: 'progress', label: 'Progress (%)', type: 'number', min: 0, max: 100 }
-                ],
-                columns: ['judul', 'jenis', 'deadline', 'progress']
-            },
-            jadwal: {
-                title: "Jadwal Mengajar", desc: "Jadwal tatap muka di kelas.",
-                fields: [
-                    { id: 'mapel', label: 'Mata Pelajaran', type: 'text', required: true },
-                    { id: 'hari', label: 'Hari', type: 'select', options: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] },
-                    { id: 'jam', label: 'Jam Ke / Waktu', type: 'text', required: true },
-                    { id: 'kelas', label: 'Kelas', type: 'text', required: true },
-                    { id: 'ruang', label: 'Ruangan', type: 'text' }
-                ],
-                columns: ['mapel', 'hari', 'jam', 'kelas', 'ruang']
-            },
-            todo: {
-                title: "To Do Guru", desc: "Manajemen tugas harian.",
-                fields: [
-                    { id: 'tugas', label: 'Deskripsi Tugas', type: 'text', required: true },
-                    { id: 'prioritas', label: 'Prioritas', type: 'select', options: ['Tinggi', 'Sedang', 'Rendah'] },
-                    { id: 'status', label: 'Status', type: 'select', options: ['Pending', 'Selesai'] }
-                ],
-                columns: ['tugas', 'prioritas', 'status']
-            },
-            catatan: {
-                title: "Catatan Penting", desc: "Simpan catatan pembelajaran atau pribadi.",
-                fields: [
-                    { id: 'judul', label: 'Judul Catatan', type: 'text', required: true },
-                    { id: 'kategori', label: 'Kategori', type: 'select', options: ['Pembelajaran', 'Siswa', 'Pribadi', 'Administrasi'] },
-                    { id: 'isi', label: 'Isi Catatan', type: 'textarea', required: true }
-                ],
-                columns: ['judul', 'kategori'] // 'isi' too long for table
-            },
-            rapat: {
-                title: "Agenda Rapat", desc: "Dokumentasi hasil dan tindak lanjut rapat.",
-                fields: [
-                    { id: 'nama', label: 'Nama Rapat', type: 'text', required: true },
-                    { id: 'tanggal', label: 'Tanggal', type: 'date', required: true },
-                    { id: 'hasil', label: 'Hasil/Keputusan', type: 'textarea', required: true }
-                ],
-                columns: ['nama', 'tanggal']
-            },
-            refleksi: {
-                title: "Refleksi Mengajar", desc: "Evaluasi harian mengajar.",
-                fields: [
-                    { id: 'tanggal', label: 'Tanggal', type: 'date', required: true },
-                    { id: 'baik', label: 'Apa yang berjalan baik?', type: 'textarea' },
-                    { id: 'perbaiki', label: 'Apa yang perlu diperbaiki?', type: 'textarea' }
-                ],
-                columns: ['tanggal']
-            },
-            ide: {
-                title: "Ide Konten Guru", desc: "Khusus Teacher Creator.",
-                fields: [
-                    { id: 'ide', label: 'Ide Konten', type: 'text', required: true },
-                    { id: 'platform', label: 'Format', type: 'select', options: ['Reels', 'Carousel', 'Story', 'Webinar', 'Produk Digital'] },
-                    { id: 'status', label: 'Status', type: 'select', options: ['Draft', 'Proses', 'Published'] }
-                ],
-                columns: ['ide', 'platform', 'status']
-            }
-        };
 
-        const UI = {
-            showToast: (msg, type = 'success') => {
-                const container = document.getElementById('toast-container');
-                const toast = document.createElement('div');
-                toast.className = `toast toast-${type}`;
-                const icon = type === 'success' ? 'check_circle' : 'error';
-                toast.innerHTML = `<span class="material-symbols-rounded">${icon}</span> ${UI.escapeHTML(msg)}`;
-                container.appendChild(toast);
+            showToast(message, isError = false) {
+                const toast = document.getElementById('toastBox');
+                const msg = document.getElementById('toastMessage');
+                msg.textContent = message;
+                toast.style.borderLeft = isError ? "4px solid var(--danger)" : "4px solid var(--primary-green)";
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            },
+
+            handleLogin(e) {
+                e.preventDefault();
+                // Mengambil nilai Nama, Email, dan Kode Akses
+                const name = document.getElementById('loginName').value;
+                const email = document.getElementById('loginEmail').value;
+                const code = document.getElementById('loginCode').value;
                 
-                // Animate in
-                setTimeout(() => toast.classList.add('show'), 10);
-                // Animate out
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                    setTimeout(() => toast.remove(), 300);
-                }, 3000);
-            },
-            setLoading: (show) => {
-                const loader = document.getElementById('global-loading');
-                if (show) loader.classList.add('active');
-                else loader.classList.remove('active');
-            },
-            escapeHTML: (str) => {
-                if (typeof str !== 'string') return str;
-                return str.replace(/[&<>'"]/g, 
-                    tag => ({
-                        '&': '&amp;',
-                        '<': '&lt;',
-                        '>': '&gt;',
-                        "'": '&#39;',
-                        '"': '&quot;'
-                    }[tag] || tag)
-                );
-            },
-            confirmObj: null,
-            showConfirm: (msg, onYes) => {
-                document.getElementById('confirm-message').textContent = msg;
-                document.getElementById('confirmation-dialog').classList.add('active');
-                UI.confirmObj = onYes;
-            },
-            closeConfirm: () => {
-                document.getElementById('confirmation-dialog').classList.remove('active');
-                UI.confirmObj = null;
-            },
-            openModal: () => document.getElementById('generic-modal').classList.add('active'),
-            closeModal: () => document.getElementById('generic-modal').classList.remove('active')
-        };
-
-        document.getElementById('confirm-yes-btn').addEventListener('click', () => {
-            if(UI.confirmObj) UI.confirmObj();
-            UI.closeConfirm();
-        });
-
-        const Auth = {
-            init: () => {
-                if (State.isLoggedIn) {
-                    document.getElementById('auth-container').style.display = 'none';
-                    document.getElementById('app-dashboard').classList.add('active');
-                    App.loadDashboardData();
+                if(code === 'TCA2026' || code === 'WebApp123') { 
+                    this.showLoading(true);
+                    setTimeout(() => {
+                        this.currentUser = name;
+                        // Simpan nama ke localStorage agar bertahan saat di-refresh
+                        localStorage.setItem('tca_session', name);
+                        document.getElementById('userNameDisplay').textContent = name;
+                        
+                        this.showLoading(false);
+                        this.navigate('dashboard-screen');
+                        this.switchTab('overview');
+                        this.showToast('Login berhasil! Selamat datang, ' + name + '.');
+                    }, 800);
+                } else {
+                    this.showToast('Kode akses salah!', true);
                 }
-                
-                document.getElementById('login-form').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const pass = document.getElementById('login-pass').value;
-                    if (pass === CONFIG.ACCESS_CODE) {
-                        UI.setLoading(true);
-                        setTimeout(() => { // Simulate network
-                            localStorage.setItem('tca_logged_in', 'true');
-                            State.isLoggedIn = true;
-                            document.getElementById('auth-container').style.opacity = '0';
-                            setTimeout(() => {
-                                document.getElementById('auth-container').style.display = 'none';
-                                document.getElementById('app-dashboard').classList.add('active');
-                                UI.setLoading(false);
-                                UI.showToast("Selamat datang di Dashboard!");
-                                App.loadDashboardData();
-                            }, 500);
-                        }, 800);
-                    } else {
-                        UI.showToast("Kode akses salah!", "error");
-                    }
-                });
             },
-            logout: () => {
-                localStorage.removeItem('tca_logged_in');
-                location.reload();
-            }
-        };
 
-        const API = {
-            request: async (action, payload = null, method = 'GET') => {
-                if(!CONFIG.GAS_URL || CONFIG.GAS_URL.includes("XXXXXXXXXXXX")) {
-                    console.warn("GAS_URL belum diatur. Menggunakan data lokal (Simulasi).");
-                    return API.mockRequest(action, payload, method);
+            checkSession() {
+                const session = localStorage.getItem('tca_session');
+                if(session) {
+                    this.currentUser = session;
+                    document.getElementById('userNameDisplay').textContent = session;
+                    this.navigate('dashboard-screen');
+                    this.switchTab('overview');
+                }
+            },
+
+            logout() {
+                localStorage.removeItem('tca_session');
+                this.navigate('welcome-screen');
+                // Reset form login
+                document.getElementById('loginForm').reset();
+                this.showToast('Anda telah logout.');
+            },
+
+            changeYear(year) {
+                this.activeYear = year;
+                this.switchTab('overview');
+                this.showToast('Tahun ajaran diubah ke ' + year);
+            },
+
+            // CORE CRUD ENGINE via Fetch API ke Apps Script
+            async fetchData(endpoint, method = 'GET', data = null) {
+                // Bypass fetch jika URL belum di set (untuk preview UI)
+                if(APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_WEB_APP_URL") {
+                    console.warn("Apps Script URL belum dikonfigurasi. Menggunakan mock data.");
+                    return this.getMockData(endpoint);
                 }
 
                 try {
-                    let url = `${CONFIG.GAS_URL}?action=${action}&year=${State.currentYear}`;
+                    let url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${encodeURIComponent(this.activeYear)}`;
                     let options = { method: method };
-
-                    if (method !== 'GET' && payload) {
-                        // For GAS, we often send data via POST body
-                        options.body = JSON.stringify(payload);
-                        // Depending on GAS setup, CORS might require text/plain
-                        options.headers = { 'Content-Type': 'text/plain;charset=utf-8' };
+                    
+                    if (method !== 'GET' && data) {
+                        options.body = JSON.stringify(data);
                     }
 
-                    const res = await fetch(url, options);
-                    const json = await res.json();
-                    if(json.status === 'success') return json.data;
-                    throw new Error(json.message || "Gagal menghubungi server.");
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return await response.json();
                 } catch (error) {
-                    console.error("API Error:", error);
-                    UI.showToast(error.message, "error");
+                    console.error('Fetch error:', error);
+                    this.showToast('Gagal memuat data dari server.', true);
                     return null;
                 }
             },
-            
-            // Mock backend for demonstration before GAS is linked
-            mockRequest: async (action, payload, method) => {
+
+            // UI TAB SWITCHER
+            switchTab(tabId) {
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                event.currentTarget.classList.add('active');
+                
+                const content = document.getElementById('contentArea');
+                content.innerHTML = ''; // Clear area
+                
+                if(tabId === 'overview') this.renderOverview(content);
+                else if(tabId === 'todo') this.renderTodo(content);
+                else this.renderDevelopmentState(content, tabId); // Fallback for other modules
+                
+                if(window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('mobile-open');
+            },
+
+            // 1. RENDER OVERVIEW (BENTO UI)
+            renderOverview(container) {
+                container.innerHTML = `
+                    <div class="section-header">
+                        <h2>Overview Tahun Ajaran ${this.activeYear}</h2>
+                    </div>
+                    <div class="bento-grid">
+                        <div class="card stat-card">
+                            <div class="stat-icon icon-blue"><i class="fas fa-calendar-check"></i></div>
+                            <div class="stat-info"><h3>12</h3><p>Agenda Bulan Ini</p></div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-icon icon-green"><i class="fas fa-check-circle"></i></div>
+                            <div class="stat-info"><h3>24</h3><p>Tugas Selesai</p></div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-icon icon-gold"><i class="fas fa-sticky-note"></i></div>
+                            <div class="stat-info"><h3>8</h3><p>Catatan Aktif</p></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Agenda Terdekat</h3>
+                        <br>
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>Belum ada agenda dalam waktu dekat.</p>
+                        </div>
+                    </div>
+                `;
+            },
+
+            // 2. RENDER TO DO GURU (Full CRUD Example)
+            async renderTodo(container) {
+                container.innerHTML = `
+                    <div class="section-header">
+                        <h2>To Do Guru</h2>
+                        <button class="btn" onclick="app.showTodoModal()"><i class="fas fa-plus"></i> Tambah Tugas</button>
+                    </div>
+                    <div class="card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Tugas</th>
+                                    <th>Prioritas</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="todoTableBody">
+                                <tr><td colspan="4" class="text-center">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+                this.showLoading(true);
+                const data = await this.fetchData('todos');
+                this.showLoading(false);
+                
+                const tbody = document.getElementById('todoTableBody');
+                if(!data || Object.keys(data).length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4"><div class="empty-state"><i class="fas fa-tasks"></i><p>Tidak ada tugas. Selamat bersantai!</p></div></td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                for(let key in data) {
+                    const item = data[key];
+                    const priorityClass = item.priority === 'Tinggi' ? 'high' : (item.priority === 'Sedang' ? 'medium' : 'low');
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><strong>${this.sanitize(item.title)}</strong></td>
+                            <td><span class="badge ${priorityClass}">${item.priority}</span></td>
+                            <td>${item.status}</td>
+                            <td>
+                                <button class="btn-outline" style="padding: 4px 8px; font-size:12px;" onclick="app.deleteData('todos', '${key}')"><i class="fas fa-trash" style="color:var(--danger)"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                }
+            },
+
+            // Helper sanitasi sederhana untuk XSS
+            sanitize(str) {
+                const temp = document.createElement('div');
+                temp.textContent = str;
+                return temp.innerHTML;
+            },
+
+            // Universal Delete with Confirmation Dialog
+            async deleteData(endpoint, id) {
+                if(confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                    this.showLoading(true);
+                    await this.fetchData(`${endpoint}?id=${id}`, 'DELETE');
+                    this.showLoading(false);
+                    this.showToast('Data berhasil dihapus');
+                    this.switchTab('todo'); // Refresh list
+                }
+            },
+
+            // Fallback render for other menus
+            renderDevelopmentState(container, moduleName) {
+                container.innerHTML = `
+                    <div class="section-header">
+                        <h2>Modul ${moduleName.toUpperCase()}</h2>
+                    </div>
+                    <div class="card empty-state">
+                        <i class="fas fa-laptop-code"></i>
+                        <p>Struktur antarmuka untuk modul <strong>${moduleName}</strong> siap dikembangkan mengikuti standar Bento UI Notion dan mesin CRUD yang sama dengan To-Do.</p>
+                    </div>
+                `;
+            },
+
+            // Mock Data for Preview
+            getMockData(endpoint) {
                 return new Promise(resolve => {
                     setTimeout(() => {
-                        let path = action.split('_'); // e.g., get_todo -> ['get', 'todo']
-                        let module = path[1] || action;
-                        
-                        if(method === 'GET') {
-                            resolve(State.data[module] || {});
-                        } else if (method === 'POST') {
-                            const id = payload.id || Date.now().toString();
-                            if(!State.data[module]) State.data[module] = {};
-                            State.data[module][id] = payload.data;
-                            resolve({id: id});
-                        } else if (method === 'DELETE') {
-                            if(State.data[module] && State.data[module][payload.id]) {
-                                delete State.data[module][payload.id];
-                            }
-                            resolve(true);
+                        if(endpoint === 'todos') {
+                            resolve({
+                                "id_1": { title: "Koreksi Ulangan Harian Kelas 10", priority: "Tinggi", status: "Proses" },
+                                "id_2": { title: "Susun RPP Semester Ganjil", priority: "Sedang", status: "Draft" },
+                                "id_3": { title: "Cari ide konten Reels mengajar", priority: "Rendah", status: "Selesai" }
+                            });
                         }
                     }, 500);
                 });
             }
         };
 
-        const App = {
-            init: () => {
-                // Setup Navigation
-                document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
-                    item.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const view = e.target.closest('.nav-item').dataset.view;
-                        App.switchView(view);
-                        
-                        // Close sidebar on mobile
-                        if(window.innerWidth <= 1024) {
-                            document.getElementById('sidebar').classList.remove('open');
-                        }
-                    });
-                });
-
-                // Year selector
-                document.getElementById('academic-year-select').addEventListener('change', (e) => {
-                    State.currentYear = e.target.value;
-                    UI.showToast(`Tahun ajaran diubah ke ${State.currentYear}`);
-                    App.loadDashboardData();
-                    if(State.currentView !== 'dashboard' && State.currentView !== 'arsip') {
-                        App.renderDynamicView(State.currentView);
-                    }
-                });
-                
-                // Global Search
-                document.getElementById('global-search').addEventListener('input', (e) => {
-                    // Simple frontend search simulation across active view
-                    const term = e.target.value.toLowerCase();
-                    const rows = document.querySelectorAll('tbody tr:not(.empty-state)');
-                    rows.forEach(row => {
-                        const text = row.textContent.toLowerCase();
-                        row.style.display = text.includes(term) ? '' : 'none';
-                    });
-                });
-            },
-
-            switchView: (viewId) => {
-                // Update nav state
-                document.querySelectorAll('.sidebar-nav .nav-item').forEach(nav => nav.classList.remove('active'));
-                const activeNav = document.querySelector(`.sidebar-nav .nav-item[data-view="${viewId}"]`);
-                if(activeNav) activeNav.classList.add('active');
-
-                // Switch container
-                document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
-                
-                State.currentView = viewId;
-
-                if (viewId === 'dashboard') {
-                    document.getElementById('view-dashboard').classList.add('active');
-                    App.updateDashboardUI();
-                } else if (viewId === 'arsip') {
-                    // Handle archive special case (just changes focus to year dropdown)
-                    document.getElementById('academic-year-select').focus();
-                    UI.showToast("Silakan pilih tahun ajaran pada dropdown di atas.");
-                    App.switchView('dashboard'); // fallback
-                } else if (Schemas[viewId]) {
-                    document.getElementById('view-dynamic').classList.add('active');
-                    App.renderDynamicView(viewId);
-                }
-            },
-
-            loadDashboardData: async () => {
-                UI.setLoading(true);
-                // Fetch all data for the year
-                for (let module in Schemas) {
-                    const data = await API.request(`get_${module}`);
-                    State.data[module] = data || {};
-                }
-                UI.setLoading(false);
-                if(State.currentView === 'dashboard') App.updateDashboardUI();
-                else if(Schemas[State.currentView]) App.renderDynamicView(State.currentView);
-            },
-
-            updateDashboardUI: () => {
-                const todos = Object.values(State.data.todo || {});
-                const agendas = Object.values(State.data.kalender || {});
-                const notes = Object.values(State.data.catatan || {});
-                const targets = Object.values(State.data.target || {});
-
-                document.getElementById('stat-agenda').textContent = agendas.length;
-                document.getElementById('stat-task').textContent = todos.filter(t => t.status === 'Selesai').length;
-                document.getElementById('stat-note').textContent = notes.length;
-                document.getElementById('stat-target').textContent = targets.length;
-
-                // Preview Todos
-                const tbody = document.getElementById('dashboard-todo-preview');
-                tbody.innerHTML = '';
-                const pendingTodos = todos.filter(t => t.status !== 'Selesai').slice(0, 5); // top 5
-                
-                if(pendingTodos.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="3" class="empty-state">Semua tugas selesai! 🎉</td></tr>`;
-                } else {
-                    pendingTodos.forEach(t => {
-                        let priorityClass = t.prioritas === 'Tinggi' ? 'badge-high' : (t.prioritas === 'Sedang' ? 'badge-medium' : 'badge-low');
-                        tbody.innerHTML += `
-                            <tr>
-                                <td>${UI.escapeHTML(t.tugas)}</td>
-                                <td><span class="badge ${priorityClass}">${UI.escapeHTML(t.prioritas || 'Rendah')}</span></td>
-                                <td>Pending</td>
-                            </tr>
-                        `;
-                    });
-                }
-            },
-
-            renderDynamicView: (module) => {
-                const schema = Schemas[module];
-                document.getElementById('dynamic-title').textContent = schema.title;
-                document.getElementById('dynamic-desc').textContent = schema.desc;
-                
-                const container = document.getElementById('dynamic-content');
-                const dataObj = State.data[module] || {};
-                const dataEntries = Object.entries(dataObj);
-
-                // Build Table
-                let html = `<div class="glass-card"><div class="table-container"><table><thead><tr>`;
-                schema.columns.forEach(col => {
-                    const field = schema.fields.find(f => f.id === col);
-                    html += `<th>${field ? field.label : col}</th>`;
-                });
-                html += `<th style="text-align: right;">Aksi</th></tr></thead><tbody>`;
-
-                if (dataEntries.length === 0) {
-                    html += `<tr><td colspan="${schema.columns.length + 1}" class="empty-state">
-                        <span class="material-symbols-rounded">folder_open</span><br>
-                        Belum ada data. Silakan tambah data baru.
-                    </td></tr>`;
-                } else {
-                    dataEntries.forEach(([id, item]) => {
-                        html += `<tr>`;
-                        schema.columns.forEach(col => {
-                            let val = item[col] || '-';
-                            // Custom styling for specific fields
-                            if(col === 'status') {
-                                let badge = val === 'Selesai' || val === 'Published' ? 'badge-done' : (val === 'Proses' ? 'badge-medium' : 'badge-high');
-                                val = `<span class="badge ${badge}">${UI.escapeHTML(val)}</span>`;
-                            } else if (col === 'prioritas') {
-                                let badge = val === 'Tinggi' ? 'badge-high' : (val === 'Sedang' ? 'badge-medium' : 'badge-low');
-                                val = `<span class="badge ${badge}">${UI.escapeHTML(val)}</span>`;
-                            } else if (col === 'progress') {
-                                val = `
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <div style="flex:1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
-                                        <div style="width: ${val}%; height: 100%; background: var(--primary);"></div>
-                                    </div>
-                                    <span style="font-size: 0.8rem;">${val}%</span>
-                                </div>`;
-                            }
-                            else {
-                                val = UI.escapeHTML(val.length > 50 ? val.substring(0,50)+"..." : val);
-                            }
-                            html += `<td>${val}</td>`;
-                        });
-                        html += `<td style="text-align: right;">
-                            <button class="btn btn-outline" style="padding: 6px 12px; margin-right: 8px;" onclick="App.editData('${module}', '${id}')"><span class="material-symbols-rounded" style="font-size: 18px;">edit</span></button>
-                            <button class="btn btn-danger" style="padding: 6px 12px;" onclick="App.deleteData('${module}', '${id}')"><span class="material-symbols-rounded" style="font-size: 18px;">delete</span></button>
-                        </td></tr>`;
-                    });
-                }
-                html += `</tbody></table></div></div>`;
-                container.innerHTML = html;
-
-                // Setup Add Button
-                const addBtn = document.getElementById('dynamic-add-btn');
-                addBtn.onclick = () => App.openForm(module);
-            },
-
-            openForm: (module, editId = null) => {
-                const schema = Schemas[module];
-                const formFields = document.getElementById('form-fields');
-                document.getElementById('modal-title').textContent = editId ? `Edit ${schema.title}` : `Tambah ${schema.title}`;
-                
-                let data = {};
-                if (editId && State.data[module][editId]) {
-                    data = State.data[module][editId];
-                }
-
-                formFields.innerHTML = '';
-                schema.fields.forEach(f => {
-                    const group = document.createElement('div');
-                    group.className = 'form-group';
-                    let inputHtml = `<label>${f.label}</label>`;
-                    
-                    const val = data[f.id] !== undefined ? UI.escapeHTML(data[f.id]) : '';
-                    const req = f.required ? 'required' : '';
-
-                    if (f.type === 'select') {
-                        inputHtml += `<select id="field-${f.id}" ${req}>`;
-                        f.options.forEach(opt => {
-                            const sel = val === opt ? 'selected' : '';
-                            inputHtml += `<option value="${opt}" ${sel}>${opt}</option>`;
-                        });
-                        inputHtml += `</select>`;
-                    } else if (f.type === 'textarea') {
-                        inputHtml += `<textarea id="field-${f.id}" ${req}>${val}</textarea>`;
-                    } else {
-                        inputHtml += `<input type="${f.type}" id="field-${f.id}" value="${val}" ${req}>`;
-                    }
-                    
-                    group.innerHTML = inputHtml;
-                    formFields.appendChild(group);
-                });
-
-                const form = document.getElementById('generic-form');
-                form.onsubmit = async (e) => {
-                    e.preventDefault();
-                    UI.setLoading(true);
-                    
-                    let payloadData = {};
-                    schema.fields.forEach(f => {
-                        payloadData[f.id] = document.getElementById(`field-${f.id}`).value;
-                    });
-
-                    // Send to API
-                    const idToSave = editId || Date.now().toString();
-                    await API.request(`save_${module}`, { id: idToSave, data: payloadData }, 'POST');
-                    
-                    // Update Local State
-                    if(!State.data[module]) State.data[module] = {};
-                    State.data[module][idToSave] = payloadData;
-                    
-                    UI.setLoading(false);
-                    UI.closeModal();
-                    UI.showToast("Data berhasil disimpan!");
-                    App.renderDynamicView(module);
-                };
-
-                UI.openModal();
-            },
-
-            editData: (module, id) => {
-                App.openForm(module, id);
-            },
-
-            deleteData: (module, id) => {
-                UI.showConfirm("Yakin ingin menghapus data ini?", async () => {
-                    UI.setLoading(true);
-                    await API.request(`delete_${module}`, { id: id }, 'DELETE');
-                    delete State.data[module][id];
-                    UI.setLoading(false);
-                    UI.showToast("Data berhasil dihapus!");
-                    App.renderDynamicView(module);
-                });
-            }
-        };
-
-        // Initialize PWA Service Worker (Basic)
-        if ('serviceWorker' in navigator) {
-            // Minimal Service Worker Blob for PWA installability requirement
-            const swCode = `
-                self.addEventListener('install', (e) => { self.skipWaiting(); });
-                self.addEventListener('fetch', (e) => { });
-            `;
-            const blob = new Blob([swCode], {type: 'application/javascript'});
-            navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(err => console.log('SW Reg Failed'));
-        }
-
-        // Start App
-        window.addEventListener('DOMContentLoaded', () => {
-            Auth.init();
-            App.init();
-            
-            // Initial animation for login left panel
-            setTimeout(() => {
-                document.querySelector('.auth-content.welcome-content').style.opacity = '1';
-                document.querySelector('.auth-content.welcome-content').style.transform = 'translateY(0)';
-            }, 100);
-        });
+        // Initialize App on Load
+        window.onload = () => app.init();
     </script>
 </body>
 </html>
