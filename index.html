@@ -7,581 +7,405 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <meta name="theme-color" content="#090909">
-    <link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;Teacher Planner&quot;,&quot;short_name&quot;:&quot;Planner&quot;,&quot;start_url&quot;:&quot;/&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#090909&quot;,&quot;theme_color&quot;:&quot;#090909&quot;}">
 
     <style>
-        /* DESIGN SYSTEM - THE NOTION WAY */
         :root {
-            /* Colors */
-            --bg-main: #090909;
-            --bg-card: #171717;
-            --bg-hover: #222222;
-            --primary-green: #5A9B33;
-            --primary-green-hover: #488028;
-            --accent-gold: #F4B41A;
-            --text-primary: #FFFFFF;
-            --text-secondary: #A1A1AA;
-            --border: rgba(255, 255, 255, 0.08);
-            --danger: #ef4444;
-            
-            /* Typography (Diperbarui ke Inter) */
+            --bg-main: #090909; --bg-card: #171717; --bg-hover: #222222;
+            --primary-green: #5A9B33; --primary-green-hover: #488028;
+            --accent-gold: #F4B41A; --text-primary: #FFFFFF; --text-secondary: #A1A1AA;
+            --border: rgba(255, 255, 255, 0.08); --danger: #ef4444;
             --font-main: 'Inter', sans-serif;
-            
-            /* Spacing & Radius */
-            --radius-sm: 8px;
-            --radius-md: 16px;
-            --radius-lg: 24px;
-            --spacing-sm: 8px;
-            --spacing-md: 16px;
-            --spacing-lg: 24px;
-            --spacing-xl: 32px;
-            
-            /* Transitions */
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 8px; --radius-md: 16px; --radius-lg: 24px;
+            --transition: all 0.3s ease;
         }
 
-        /* Reset & Base */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
         body { background-color: var(--bg-main); color: var(--text-primary); overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         button, input, select, textarea { border: none; outline: none; background: none; font-family: inherit; }
         
-        /* Typography System */
-        h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+        h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; }
         h2 { font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; }
         p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
         
-        /* Shared Components */
-        .btn {
-            background-color: var(--primary-green); color: white; padding: 12px 24px;
-            border-radius: var(--radius-sm); font-weight: 500; cursor: pointer;
-            transition: var(--transition); display: inline-flex; align-items: center; gap: 8px;
-        }
-        .btn:hover { background-color: var(--primary-green-hover); transform: translateY(-2px); }
+        .btn { background-color: var(--primary-green); color: white; padding: 10px 20px; border-radius: var(--radius-sm); font-weight: 500; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 8px; font-size:0.9rem;}
+        .btn:hover { background-color: var(--primary-green-hover); }
         .btn-outline { background-color: transparent; border: 1px solid var(--border); color: var(--text-primary); }
         .btn-outline:hover { background-color: var(--bg-hover); border-color: var(--text-secondary); }
+        .btn-danger { background-color: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .btn-danger:hover { background-color: var(--danger); color: white; }
         
-        .input-group { margin-bottom: 16px; }
+        .input-group { margin-bottom: 16px; text-align: left;}
         .input-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
-        .input-control {
-            width: 100%; background: var(--bg-main); border: 1px solid var(--border);
-            color: var(--text-primary); padding: 12px 16px; border-radius: var(--radius-sm);
-            transition: var(--transition);
-        }
-        .input-control:focus { border-color: var(--primary-green); box-shadow: 0 0 0 2px rgba(90, 155, 51, 0.2); }
+        .input-control { width: 100%; background: var(--bg-main); border: 1px solid var(--border); color: var(--text-primary); padding: 12px 16px; border-radius: var(--radius-sm); transition: var(--transition); }
+        .input-control:focus { border-color: var(--primary-green); }
 
-        .card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius-md); padding: var(--spacing-lg);
-            transition: var(--transition);
-        }
-
-        /* Screen Management */
-        .screen { display: none; min-height: 100vh; animation: fadeIn 0.5s ease; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; transition: var(--transition); }
+        .screen { display: none; min-height: 100vh; animation: fadeIn 0.3s ease; }
         .screen.active { display: flex; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 1. WELCOME SCREEN */
-        #welcome-screen { flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
-        .welcome-logo { width: 120px; height: auto; margin-bottom: 24px; object-fit: contain; }
-        .welcome-content { max-width: 600px; }
-        .welcome-content h1 { margin-bottom: 16px; }
-        .welcome-content p { margin-bottom: 32px; font-size: 1.1rem; }
-
-        /* 2. LOGIN SCREEN */
-        #login-screen { align-items: center; justify-content: center; padding: 20px; }
-        .login-card { width: 100%; max-width: 400px; text-align: center; }
-        .login-logo { width: 90px; margin-bottom: 24px; }
-        .login-card h2 { margin-bottom: 8px; }
-        .login-card p { margin-bottom: 24px; }
-
-        /* 3. DASHBOARD */
+        /* Screens */
+        #welcome-screen, #login-screen { flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .welcome-logo, .login-logo { width: 120px; margin-bottom: 24px; object-fit: contain; }
+        .welcome-content, .login-card { max-width: 400px; width: 100%; }
+        
+        /* Dashboard */
         #dashboard-screen { flex-direction: row; align-items: stretch; }
-        
-        /* Sidebar */
-        .sidebar {
-            width: 280px; background: var(--bg-card); border-right: 1px solid var(--border);
-            display: flex; flex-direction: column; padding: var(--spacing-md); height: 100vh;
-            position: sticky; top: 0;
-        }
-        .brand { display: flex; align-items: center; gap: 12px; padding: 12px; margin-bottom: 24px; }
-        .brand img { width: 48px; height: 48px; object-fit: contain; }
-        .brand-text h2 { font-size: 1rem; color: var(--text-primary); }
-        .brand-text span { font-size: 0.75rem; color: var(--text-secondary); }
-        
+        .sidebar { width: 260px; background: var(--bg-card); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 16px; height: 100vh; position: sticky; top: 0; }
+        .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);}
+        .brand img { width: 40px; height: 40px; }
         .nav-menu { flex: 1; overflow-y: auto; }
-        .nav-item {
-            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
-            color: var(--text-secondary); border-radius: var(--radius-sm);
-            margin-bottom: 4px; cursor: pointer; transition: var(--transition); font-weight: 500;
-        }
-        .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
-        .nav-item.active { background: rgba(90, 155, 51, 0.1); color: var(--primary-green); }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px; color: var(--text-secondary); border-radius: var(--radius-sm); cursor: pointer; font-size: 0.9rem; margin-bottom:4px;}
+        .nav-item:hover, .nav-item.active { background: rgba(90, 155, 51, 0.1); color: var(--primary-green); font-weight: 500; }
         
-        .year-selector { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border); }
-
-        /* Main Content */
         .main-content { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
-        
-        /* Header */
-        .header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 24px 32px; border-bottom: 1px solid var(--border); background: var(--bg-main);
-            position: sticky; top: 0; z-index: 10;
-        }
-        .header-search { position: relative; width: 300px; }
-        .header-search i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
-        .header-search input { padding-left: 48px; border-radius: 20px; background: var(--bg-card); border: 1px solid transparent; }
-        .header-search input:focus { border-color: var(--border); }
-        .header-profile { display: flex; align-items: center; gap: 16px; font-weight: 500; }
-        
-        /* Page Content */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; border-bottom: 1px solid var(--border); background: var(--bg-main); position: sticky; top: 0; z-index: 10; }
         .page-content { padding: 32px; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap:16px;}
         
-        /* Bento Grid (Overview) */
-        .bento-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px; margin-bottom: 32px;
-        }
-        .stat-card { display: flex; align-items: center; gap: 16px; }
-        .stat-icon {
-            width: 48px; height: 48px; border-radius: 12px; display: flex;
-            align-items: center; justify-content: center; font-size: 1.5rem;
-        }
-        .icon-green { background: rgba(90, 155, 51, 0.1); color: var(--primary-green); }
-        .icon-gold { background: rgba(244, 180, 26, 0.1); color: var(--accent-gold); }
-        .icon-blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        /* Dynamic Table */
+        .table-responsive { overflow-x: auto; width: 100%; }
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
+        .data-table th, .data-table td { padding: 16px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+        .data-table th { color: var(--text-secondary); font-weight: 500; }
         
-        .stat-info h3 { font-size: 1.5rem; color: var(--text-primary); }
-        .stat-info p { font-size: 0.85rem; color: var(--text-secondary); }
-
-        /* Data Tables / Lists */
-        .data-table { width: 100%; border-collapse: collapse; text-align: left; }
-        .data-table th, .data-table td { padding: 16px; border-bottom: 1px solid var(--border); }
-        .data-table th { color: var(--text-secondary); font-weight: 500; font-size: 0.85rem; }
-        .badge {
-            padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 500;
-        }
-        .badge.high { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
-        .badge.medium { background: rgba(244, 180, 26, 0.1); color: var(--accent-gold); }
-        .badge.low { background: rgba(90, 155, 51, 0.1); color: var(--primary-green); }
-
-        /* Modals, Toast, Loading */
-        .toast {
-            position: fixed; bottom: 24px; right: 24px; background: var(--bg-card);
-            border: 1px solid var(--border); padding: 16px 24px; border-radius: var(--radius-sm);
-            display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transform: translateX(120%); transition: var(--transition); z-index: 1000;
-        }
+        /* Modal & Utilities */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 999; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: var(--bg-card); width: 100%; max-width: 500px; border-radius: var(--radius-md); padding: 24px; max-height: 90vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        
+        .toast { position: fixed; bottom: 24px; right: 24px; background: var(--bg-card); border: 1px solid var(--border); padding: 16px 24px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 12px; transform: translateX(150%); transition: var(--transition); z-index: 1000; }
         .toast.show { transform: translateX(0); }
-        
-        .loading-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(9, 9, 9, 0.8); backdrop-filter: blur(4px);
-            display: none; justify-content: center; align-items: center; z-index: 9999; flex-direction: column; gap: 16px;
-        }
-        .spinner {
-            width: 40px; height: 40px; border: 3px solid var(--border);
-            border-top-color: var(--primary-green); border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+        .loading-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(9,9,9,0.8); display: none; justify-content: center; align-items: center; z-index: 9999; flex-direction: column; }
+        .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--primary-green); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Empty State */
-        .empty-state { text-align: center; padding: 48px; color: var(--text-secondary); }
-        .empty-state i { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
-
-        /* Mobile Responsiveness */
+        
         @media (max-width: 768px) {
             #dashboard-screen { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: static; display: none; }
-            .sidebar.mobile-open { display: flex; position: fixed; z-index: 100; height: 100vh; }
-            .header-search { display: none; }
-            .mobile-menu-btn { display: block !important; }
-        }
-        .mobile-menu-btn { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
-
-        /* Print CSS for Export PDF */
-        @media print {
-            body { background: white; color: black; }
-            .sidebar, .header, .btn, .header-search { display: none !important; }
-            .card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; }
-            * { color: black !important; }
+            .sidebar { display: none; width: 100%; height: auto; position: static;}
+            .sidebar.mobile-open { display: flex; }
+            .header { padding: 16px; }
+            .page-content { padding: 16px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <p>Memproses data...</p>
-    </div>
+    <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div><p style="margin-top:16px;">Memproses...</p></div>
+    <div class="toast" id="toastBox"><i class="fas fa-info-circle" style="color:var(--primary-green)"></i><span id="toastMessage"></span></div>
 
-    <div class="toast" id="toastBox">
-        <i class="fas fa-info-circle icon-green" style="background:none; font-size: 1.2rem;"></i>
-        <span id="toastMessage">Notifikasi sistem</span>
+    <div class="modal-overlay" id="formModalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Tambah Data</h3>
+                <button class="btn-outline" style="padding:4px 8px;" onclick="app.closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="dynamicForm" onsubmit="app.saveData(event)">
+                <div id="modalFormContent"></div>
+                <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:24px;">
+                    <button type="button" class="btn btn-outline" onclick="app.closeModal()">Batal</button>
+                    <button type="submit" class="btn">Simpan Data</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <main class="screen active" id="welcome-screen">
         <img src="" alt="TCA Logo" class="welcome-logo" id="welcomeLogo">
         <div class="welcome-content">
-            <h1>Selamat Datang di Teacher Planner 2026/2027</h1>
-            <p>Tempat seluruh perencanaan mengajar Anda tersusun rapi dalam satu dashboard eksklusif. By Teacher Creator Academy.</p>
-            <button class="btn" onclick="app.navigate('login-screen')">
-                Mulai Sekarang <i class="fas fa-arrow-right"></i>
-            </button>
+            <h1 class="hero-title">
+    Teacher Planner<br>
+    2026/2027
+</h1>
+
+<p class="hero-description">
+    Ruang kerja digital untuk guru Indonesia.
+</p>
+
+<p class="hero-subtext">
+    Rencanakan pembelajaran, kelola agenda sekolah,
+    simpan refleksi mengajar, dan capai target akademik
+    dalam satu dashboard yang terorganisir.
+</p>
+            <button class="btn" onclick="app.navigate('login-screen')">Mulai Sekarang <i class="fas fa-arrow-right"></i></button>
         </div>
     </main>
 
     <main class="screen" id="login-screen">
         <div class="card login-card">
-            <img src="" alt="TCA Logo" class="login-logo" id="loginLogo">
-            <h2>Portal Guru</h2>
-            <p>Silakan lengkapi data untuk masuk</p>
-            
-            <form id="loginForm" onsubmit="app.handleLogin(event)">
-                <div class="input-group text-left">
-                    <label>Nama Lengkap</label>
-                    <input type="text" class="input-control" id="loginName" required placeholder="Contoh: Budi Santoso">
-                </div>
-                <div class="input-group text-left">
-                    <label>Email</label>
-                    <input type="email" class="input-control" id="loginEmail" required placeholder="budi@sekolah.id">
-                </div>
-                <div class="input-group text-left">
-                    <label>Kode Akses</label>
-                    <input type="password" class="input-control" id="loginCode" required placeholder="TCA2026">
-                </div>
-                <button type="submit" class="btn" style="width: 100%; justify-content: center; margin-top: 8px;">
-                    Masuk Dashboard
-                </button>
+            <h2>Portal Masuk</h2><br>
+            <form onsubmit="app.handleLogin(event)">
+                <div class="input-group"><label>Nama Lengkap</label><input type="text" class="input-control" id="loginName" required></div>
+                <div class="input-group"><label>Email (Penting untuk Workspace Data)</label><input type="email" class="input-control" id="loginEmail" required></div>
+                <div class="input-group"><label>Kode Akses</label><input type="password" class="input-control" id="loginCode" required placeholder="TCA2026"></div>
+                <button type="submit" class="btn" style="width:100%; justify-content:center;">Masuk Workspace</button>
             </form>
         </div>
     </main>
 
     <main class="screen" id="dashboard-screen">
-        
         <aside class="sidebar" id="sidebar">
             <div class="brand">
-                <img src="" alt="TCA Logo" id="sidebarLogo">
-                <div class="brand-text">
-                    <h2>Teacher Planner</h2>
-                    <span>Teacher Creator Academy</span>
-                </div>
+                <img src="" alt="Logo" id="sidebarLogo">
+                <div><h3 style="font-size:1rem;">Teacher Planner</h3><span style="font-size:0.75rem; color:var(--text-secondary)">By Teacher Creator Academy</span></div>
             </div>
-
-            <ul class="nav-menu">
-                <li class="nav-item active" onclick="app.switchTab('overview')"><i class="fas fa-border-all"></i> Dashboard</li>
-                <li class="nav-item" onclick="app.switchTab('kalender')"><i class="fas fa-calendar-alt"></i> Kalender Pendidikan</li>
-                <li class="nav-item" onclick="app.switchTab('target')"><i class="fas fa-bullseye"></i> Target Mengajar</li>
-                <li class="nav-item" onclick="app.switchTab('jadwal')"><i class="fas fa-clock"></i> Jadwal Mengajar</li>
-                <li class="nav-item" onclick="app.switchTab('todo')"><i class="fas fa-check-square"></i> To Do Guru</li>
-                <li class="nav-item" onclick="app.switchTab('catatan')"><i class="fas fa-sticky-note"></i> Catatan Penting</li>
-                <li class="nav-item" onclick="app.switchTab('rapat')"><i class="fas fa-users"></i> Agenda Rapat</li>
-                <li class="nav-item" onclick="app.switchTab('refleksi')"><i class="fas fa-brain"></i> Refleksi Mengajar</li>
-                <li class="nav-item" onclick="app.switchTab('konten')"><i class="fas fa-lightbulb"></i> Ide Konten Guru</li>
-                <li class="nav-item" onclick="app.switchTab('arsip')"><i class="fas fa-archive"></i> Arsip Tahunan</li>
-            </ul>
-
-            <div class="year-selector">
-                <div class="input-group" style="margin:0;">
-                    <label>Tahun Ajaran Aktif</label>
-                    <select class="input-control" id="yearSelect" onchange="app.changeYear(this.value)">
-                        <option value="2026/2027">2026/2027</option>
-                        <option value="2027/2028">2027/2028</option>
-                    </select>
-                </div>
-            </div>
+            <div class="input-group"><select class="input-control" id="yearSelect" onchange="app.changeYear(this.value)"><option value="2026-2027">2026/2027</option></select></div>
+            <ul class="nav-menu" id="navMenu">
+                </ul>
         </aside>
 
         <div class="main-content">
             <header class="header">
-                <i class="fas fa-bars mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')"></i>
-                <div class="header-search">
-                    <i class="fas fa-search"></i>
-                    <input type="text" class="input-control" placeholder="Cari agenda, tugas, catatan..." onkeyup="app.globalSearch(this.value)">
-                </div>
-                <div class="header-profile">
-                    <button class="btn-outline" style="padding: 8px; border-radius: 50%; width: 40px; height: 40px;" onclick="window.print()">
-                        <i class="fas fa-print"></i>
-                    </button>
-                    <span id="userNameDisplay">Guru Hebat</span>
-                    <button class="btn btn-outline" onclick="app.logout()">Logout</button>
+                <button class="btn-outline" style="padding:8px 12px; display:none;" id="mobileToggle" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')"><i class="fas fa-bars"></i></button>
+                <div style="font-weight:500;" id="headerTitle">Dashboard Overview</div>
+                <div style="display:flex; gap:12px; align-items:center;">
+                    <span id="userNameDisplay" style="font-size:0.9rem; color:var(--text-secondary);"></span>
+                    <button class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="app.logout()">Logout</button>
                 </div>
             </header>
-
-            <div class="page-content" id="contentArea">
-                </div>
+            <div class="page-content" id="contentArea"></div>
         </div>
     </main>
 
     <script>
-        /**
-         * GLOBAL CONFIGURATION
-         * JANGAN HAPUS URL INI KETIKA REVISI.
-         */
-        const LOGO_URL = "assets/logo-tca.png"; // Fallback URL (Ganti dengan URL resmi TCA)
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8CvNXuyOkbIBfZ1J5RVQdwIyYfJltoC-iC7XnNZEvasP3oeFa18jDfYAlGBqmgDvq/exec"; // Wajib diisi setelah deploy Apps Script
+        const LOGO_URL = "assets/logo-tca.png"; 
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8CvNXuyOkbIBfZ1J5RVQdwIyYfJltoC-iC7XnNZEvasP3oeFa18jDfYAlGBqmgDvq/exec"; // <--- PASTE URL WEB APP BARU DISINI
         
-        // App State Management
         const app = {
-            currentUser: null,
-            activeYear: '2026/2027',
-            
+            user: { name: null, email: null, safeEmail: null },
+            activeYear: '2026-2027',
+            activeModule: 'overview',
+            editingId: null,
+
+            // DYNAMIC MODULE DEFINITIONS (MENDUKUNG SEMUA KEBUTUHAN ANDA)
+            modules: {
+                overview: { icon: 'fa-border-all', title: 'Dashboard', render: 'custom' },
+                kalender: { icon: 'fa-calendar-alt', title: 'Kalender Pendidikan', 
+                    fields: [ {id: 'tanggal', label: 'Tanggal', type: 'date'}, {id: 'judul', label: 'Nama Kegiatan', type: 'text'}, {id: 'kategori', label: 'Kategori', type: 'select', options: ['Akademik','Administrasi','Rapat','Pribadi']} ]
+                },
+                target: { icon: 'fa-bullseye', title: 'Target Mengajar', 
+                    fields: [ {id: 'judul', label: 'Judul Target', type: 'text'}, {id: 'deskripsi', label: 'Deskripsi', type: 'text'}, {id: 'deadline', label: 'Deadline', type: 'date'}, {id: 'progress', label: 'Progress (%)', type: 'number'} ]
+                },
+                jadwal: { icon: 'fa-clock', title: 'Jadwal Mengajar', 
+                    fields: [ {id: 'hari', label: 'Hari', type: 'select', options: ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu']}, {id: 'jam', label: 'Jam (cth: 07:00-08:30)', type: 'text'}, {id: 'mapel', label: 'Mata Pelajaran', type: 'text'}, {id: 'kelas', label: 'Kelas', type: 'text'}, {id: 'ruang', label: 'Ruangan', type: 'text'} ]
+                },
+                todo: { icon: 'fa-check-square', title: 'To Do Guru', 
+                    fields: [ {id: 'tugas', label: 'Tugas', type: 'text'}, {id: 'prioritas', label: 'Prioritas', type: 'select', options: ['Tinggi','Sedang','Rendah']}, {id: 'status', label: 'Status', type: 'select', options: ['Belum Selesai', 'Selesai']} ]
+                },
+                catatan: { icon: 'fa-sticky-note', title: 'Catatan Penting', 
+                    fields: [ {id: 'judul', label: 'Judul Catatan', type: 'text'}, {id: 'kategori', label: 'Kategori', type: 'select', options: ['Pembelajaran','Siswa','Pribadi','Administrasi']}, {id: 'isi', label: 'Isi Catatan', type: 'textarea'} ]
+                },
+                rapat: { icon: 'fa-users', title: 'Agenda Rapat', 
+                    fields: [ {id: 'nama', label: 'Nama Rapat', type: 'text'}, {id: 'tanggal', label: 'Tanggal', type: 'date'}, {id: 'lokasi', label: 'Lokasi', type: 'text'}, {id: 'hasil', label: 'Hasil/Tindak Lanjut', type: 'textarea'} ]
+                },
+                refleksi: { icon: 'fa-brain', title: 'Refleksi Mengajar', 
+                    fields: [ {id: 'tanggal', label: 'Tanggal', type: 'date'}, {id: 'baik', label: 'Apa yang berjalan baik?', type: 'text'}, {id: 'kurang', label: 'Kendala / Perlu perbaikan?', type: 'text'} ]
+                },
+                konten: { icon: 'fa-lightbulb', title: 'Ide Konten Guru', 
+                    fields: [ {id: 'ide', label: 'Judul Ide', type: 'text'}, {id: 'platform', label: 'Jenis', type: 'select', options: ['Reels','Carousel','Story','Webinar']}, {id: 'status', label: 'Status', type: 'select', options: ['Draft','Proses','Published']} ]
+                }
+            },
+
             init() {
-                this.setupLogos();
-                this.checkSession();
-            },
-
-            setupLogos() {
                 document.getElementById('welcomeLogo').src = LOGO_URL;
-                document.getElementById('loginLogo').src = LOGO_URL;
                 document.getElementById('sidebarLogo').src = LOGO_URL;
+                this.buildSidebar();
+                
+                if(window.innerWidth <= 768) document.getElementById('mobileToggle').style.display = 'block';
+
+                const sessionStr = localStorage.getItem('tca_session_v2');
+                if(sessionStr) {
+                    this.user = JSON.parse(sessionStr);
+                    document.getElementById('userNameDisplay').textContent = this.user.name;
+                    this.navigate('dashboard-screen');
+                    this.loadModule('overview');
+                }
             },
 
-            navigate(screenId) {
-                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                document.getElementById(screenId).classList.add('active');
-            },
-
-            showLoading(show) {
-                document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
-            },
-
-            showToast(message, isError = false) {
-                const toast = document.getElementById('toastBox');
-                const msg = document.getElementById('toastMessage');
-                msg.textContent = message;
-                toast.style.borderLeft = isError ? "4px solid var(--danger)" : "4px solid var(--primary-green)";
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 3000);
+            buildSidebar() {
+                const ul = document.getElementById('navMenu');
+                ul.innerHTML = '';
+                for(let key in this.modules) {
+                    const mod = this.modules[key];
+                    ul.innerHTML += `<li class="nav-item" id="nav-${key}" onclick="app.loadModule('${key}')"><i class="fas ${mod.icon}"></i> ${mod.title}</li>`;
+                }
             },
 
             handleLogin(e) {
                 e.preventDefault();
-                // Mengambil nilai Nama, Email, dan Kode Akses
-                const name = document.getElementById('loginName').value;
-                const email = document.getElementById('loginEmail').value;
                 const code = document.getElementById('loginCode').value;
-                
-                if(code === 'TCA2026' || code === 'WebApp123') { 
-                    this.showLoading(true);
-                    setTimeout(() => {
-                        this.currentUser = name;
-                        // Simpan nama ke localStorage agar bertahan saat di-refresh
-                        localStorage.setItem('tca_session', name);
-                        document.getElementById('userNameDisplay').textContent = name;
-                        
-                        this.showLoading(false);
-                        this.navigate('dashboard-screen');
-                        this.switchTab('overview');
-                        this.showToast('Login berhasil! Selamat datang, ' + name + '.');
-                    }, 800);
-                } else {
-                    this.showToast('Kode akses salah!', true);
-                }
-            },
-
-            checkSession() {
-                const session = localStorage.getItem('tca_session');
-                if(session) {
-                    this.currentUser = session;
-                    document.getElementById('userNameDisplay').textContent = session;
+                if(code === 'TCA2026' || code === 'WebApp123') {
+                    const email = document.getElementById('loginEmail').value;
+                    const safeEmail = email.replace(/[.#$[\]]/g, '_'); // Wajib Firebase
+                    this.user = { name: document.getElementById('loginName').value, email: email, safeEmail: safeEmail };
+                    
+                    localStorage.setItem('tca_session_v2', JSON.stringify(this.user));
+                    document.getElementById('userNameDisplay').textContent = this.user.name;
+                    
+                    this.showToast('Login berhasil! Menyusun Workspace Anda...');
                     this.navigate('dashboard-screen');
-                    this.switchTab('overview');
+                    this.loadModule('overview');
+                } else {
+                    this.showToast('Kode Akses Salah!', true);
                 }
             },
 
-            logout() {
-                localStorage.removeItem('tca_session');
-                this.navigate('welcome-screen');
-                // Reset form login
-                document.getElementById('loginForm').reset();
-                this.showToast('Anda telah logout.');
-            },
+            logout() { localStorage.removeItem('tca_session_v2'); location.reload(); },
+            navigate(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); },
+            showToast(msg, err=false) { const t=document.getElementById('toastBox'); document.getElementById('toastMessage').innerText=msg; t.style.borderLeftColor=err?'var(--danger)':'var(--primary-green)'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); },
+            showLoading(show) { document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none'; },
 
-            changeYear(year) {
-                this.activeYear = year;
-                this.switchTab('overview');
-                this.showToast('Tahun ajaran diubah ke ' + year);
-            },
-
-            // CORE CRUD ENGINE via Fetch API ke Apps Script
-            async fetchData(endpoint, method = 'GET', data = null) {
-                // Bypass fetch jika URL belum di set (untuk preview UI)
-                if(APPS_SCRIPT_URL === "YOUR_APPS_SCRIPT_WEB_APP_URL") {
-                    console.warn("Apps Script URL belum dikonfigurasi. Menggunakan mock data.");
-                    return this.getMockData(endpoint);
-                }
-
-                try {
-                    let url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${encodeURIComponent(this.activeYear)}`;
-                    let options = { method: method };
-                    
-                    if (method !== 'GET' && data) {
-                        options.body = JSON.stringify(data);
-                    }
-
-                    const response = await fetch(url, options);
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return await response.json();
-                } catch (error) {
-                    console.error('Fetch error:', error);
-                    this.showToast('Gagal memuat data dari server.', true);
-                    return null;
-                }
-            },
-
-            // UI TAB SWITCHER
-            switchTab(tabId) {
+            // CORE ENGINE: Dinamis Load Data
+            async loadModule(key) {
+                this.activeModule = key;
                 document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-                event.currentTarget.classList.add('active');
-                
-                const content = document.getElementById('contentArea');
-                content.innerHTML = ''; // Clear area
-                
-                if(tabId === 'overview') this.renderOverview(content);
-                else if(tabId === 'todo') this.renderTodo(content);
-                else this.renderDevelopmentState(content, tabId); // Fallback for other modules
-                
+                document.getElementById(`nav-${key}`).classList.add('active');
+                document.getElementById('headerTitle').textContent = this.modules[key].title;
                 if(window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('mobile-open');
-            },
-
-            // 1. RENDER OVERVIEW (BENTO UI)
-            renderOverview(container) {
-                container.innerHTML = `
-                    <div class="section-header">
-                        <h2>Overview Tahun Ajaran ${this.activeYear}</h2>
-                    </div>
-                    <div class="bento-grid">
-                        <div class="card stat-card">
-                            <div class="stat-icon icon-blue"><i class="fas fa-calendar-check"></i></div>
-                            <div class="stat-info"><h3>12</h3><p>Agenda Bulan Ini</p></div>
-                        </div>
-                        <div class="card stat-card">
-                            <div class="stat-icon icon-green"><i class="fas fa-check-circle"></i></div>
-                            <div class="stat-info"><h3>24</h3><p>Tugas Selesai</p></div>
-                        </div>
-                        <div class="card stat-card">
-                            <div class="stat-icon icon-gold"><i class="fas fa-sticky-note"></i></div>
-                            <div class="stat-info"><h3>8</h3><p>Catatan Aktif</p></div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Agenda Terdekat</h3>
-                        <br>
-                        <div class="empty-state">
-                            <i class="fas fa-inbox"></i>
-                            <p>Belum ada agenda dalam waktu dekat.</p>
-                        </div>
-                    </div>
-                `;
-            },
-
-            // 2. RENDER TO DO GURU (Full CRUD Example)
-            async renderTodo(container) {
-                container.innerHTML = `
-                    <div class="section-header">
-                        <h2>To Do Guru</h2>
-                        <button class="btn" onclick="app.showTodoModal()"><i class="fas fa-plus"></i> Tambah Tugas</button>
-                    </div>
-                    <div class="card">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Tugas</th>
-                                    <th>Prioritas</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="todoTableBody">
-                                <tr><td colspan="4" class="text-center">Memuat data...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                `;
                 
-                this.showLoading(true);
-                const data = await this.fetchData('todos');
-                this.showLoading(false);
+                const container = document.getElementById('contentArea');
                 
-                const tbody = document.getElementById('todoTableBody');
-                if(!data || Object.keys(data).length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4"><div class="empty-state"><i class="fas fa-tasks"></i><p>Tidak ada tugas. Selamat bersantai!</p></div></td></tr>`;
+                if (key === 'overview') {
+                    container.innerHTML = `<div class="card"><div style="text-align:center; padding:40px;"><i class="fas fa-check-circle" style="font-size:3rem; color:var(--primary-green); margin-bottom:16px;"></i><h2>Halo ${this.user.name}!</h2><p>Semua menu disebelah kiri kini sudah terhubung ke database pribadi Anda (${this.user.email}). Silakan mulai mengisi data jadwal, tugas, atau kalender Anda.</p></div></div>`;
                     return;
                 }
 
-                tbody.innerHTML = '';
-                for(let key in data) {
-                    const item = data[key];
-                    const priorityClass = item.priority === 'Tinggi' ? 'high' : (item.priority === 'Sedang' ? 'medium' : 'low');
-                    tbody.innerHTML += `
-                        <tr>
-                            <td><strong>${this.sanitize(item.title)}</strong></td>
-                            <td><span class="badge ${priorityClass}">${item.priority}</span></td>
-                            <td>${item.status}</td>
-                            <td>
-                                <button class="btn-outline" style="padding: 4px 8px; font-size:12px;" onclick="app.deleteData('todos', '${key}')"><i class="fas fa-trash" style="color:var(--danger)"></i></button>
-                            </td>
-                        </tr>
-                    `;
-                }
-            },
-
-            // Helper sanitasi sederhana untuk XSS
-            sanitize(str) {
-                const temp = document.createElement('div');
-                temp.textContent = str;
-                return temp.innerHTML;
-            },
-
-            // Universal Delete with Confirmation Dialog
-            async deleteData(endpoint, id) {
-                if(confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                    this.showLoading(true);
-                    await this.fetchData(`${endpoint}?id=${id}`, 'DELETE');
-                    this.showLoading(false);
-                    this.showToast('Data berhasil dihapus');
-                    this.switchTab('todo'); // Refresh list
-                }
-            },
-
-            // Fallback render for other menus
-            renderDevelopmentState(container, moduleName) {
+                // Render Header Dynamic
                 container.innerHTML = `
                     <div class="section-header">
-                        <h2>Modul ${moduleName.toUpperCase()}</h2>
+                        <h2>Data ${this.modules[key].title}</h2>
+                        <button class="btn" onclick="app.openModal()"><i class="fas fa-plus"></i> Tambah Data</button>
                     </div>
-                    <div class="card empty-state">
-                        <i class="fas fa-laptop-code"></i>
-                        <p>Struktur antarmuka untuk modul <strong>${moduleName}</strong> siap dikembangkan mengikuti standar Bento UI Notion dan mesin CRUD yang sama dengan To-Do.</p>
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="dataTable">
+                                <thead><tr id="tableHead"></tr></thead>
+                                <tbody id="tableBody"><tr><td colspan="10" style="text-align:center">Memuat data dari server...</td></tr></tbody>
+                            </table>
+                        </div>
                     </div>
                 `;
+
+                // Build Table Headers from config
+                const fields = this.modules[key].fields;
+                const thRow = document.getElementById('tableHead');
+                fields.forEach(f => thRow.innerHTML += `<th>${f.label}</th>`);
+                thRow.innerHTML += `<th>Aksi</th>`;
+
+                // Fetch Real Data
+                this.showLoading(true);
+                const data = await this.fetchData(key);
+                this.showLoading(false);
+
+                const tBody = document.getElementById('tableBody');
+                tBody.innerHTML = '';
+
+                if(!data || Object.keys(data).length === 0) {
+                    tBody.innerHTML = `<tr><td colspan="${fields.length + 1}" style="text-align:center; padding:32px; color:var(--text-secondary)"><i class="fas fa-folder-open" style="font-size:2rem; margin-bottom:10px;"></i><br>Belum ada data ${this.modules[key].title}.</td></tr>`;
+                    return;
+                }
+
+                // Populate Rows
+                for(let id in data) {
+                    const item = data[id];
+                    let row = `<tr>`;
+                    fields.forEach(f => { row += `<td>${item[f.id] || '-'}</td>`; });
+                    row += `
+                        <td>
+                            <button class="btn-outline" style="padding:6px; font-size:12px; margin-right:4px;" onclick="app.deleteData('${key}', '${id}')"><i class="fas fa-trash" style="color:var(--danger)"></i></button>
+                        </td>
+                    </tr>`;
+                    tBody.innerHTML += row;
+                }
             },
 
-            // Mock Data for Preview
-            getMockData(endpoint) {
-                return new Promise(resolve => {
-                    setTimeout(() => {
-                        if(endpoint === 'todos') {
-                            resolve({
-                                "id_1": { title: "Koreksi Ulangan Harian Kelas 10", priority: "Tinggi", status: "Proses" },
-                                "id_2": { title: "Susun RPP Semester Ganjil", priority: "Sedang", status: "Draft" },
-                                "id_3": { title: "Cari ide konten Reels mengajar", priority: "Rendah", status: "Selesai" }
-                            });
-                        }
-                    }, 500);
+            // DYNAMIC MODAL GENERATOR
+            openModal() {
+                this.editingId = null;
+                const mod = this.modules[this.activeModule];
+                document.getElementById('modalTitle').textContent = `Tambah ${mod.title}`;
+                
+                const form = document.getElementById('modalFormContent');
+                form.innerHTML = '';
+                
+                mod.fields.forEach(f => {
+                    let inputHtml = '';
+                    if(f.type === 'select') {
+                        let opts = f.options.map(o => `<option value="${o}">${o}</option>`).join('');
+                        inputHtml = `<select id="field_${f.id}" class="input-control" required>${opts}</select>`;
+                    } else if (f.type === 'textarea') {
+                        inputHtml = `<textarea id="field_${f.id}" class="input-control" rows="3" required></textarea>`;
+                    } else {
+                        inputHtml = `<input type="${f.type}" id="field_${f.id}" class="input-control" required>`;
+                    }
+                    form.innerHTML += `<div class="input-group"><label>${f.label}</label>${inputHtml}</div>`;
                 });
+                
+                document.getElementById('formModalOverlay').classList.add('active');
+            },
+
+            closeModal() { document.getElementById('formModalOverlay').classList.remove('active'); document.getElementById('dynamicForm').reset(); },
+
+            // SAVE DATA
+            async saveData(e) {
+                e.preventDefault();
+                const mod = this.modules[this.activeModule];
+                let payload = {};
+                
+                mod.fields.forEach(f => { payload[f.id] = document.getElementById(`field_${f.id}`).value; });
+                
+                this.closeModal();
+                this.showLoading(true);
+                
+                // Panggil fetch POST
+                const url = `${APPS_SCRIPT_URL}?endpoint=${this.activeModule}&year=${this.activeYear}&email=${this.user.safeEmail}&action=create`;
+                try {
+                    const res = await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
+                    this.showLoading(false);
+                    this.showToast('Data berhasil disimpan!');
+                    this.loadModule(this.activeModule); // Reload realtime lokal
+                } catch(err) {
+                    this.showLoading(false);
+                    this.showToast('Gagal menyimpan ke server', true);
+                }
+            },
+
+            // DELETE DATA
+            async deleteData(endpoint, id) {
+                if(confirm('Yakin menghapus data ini?')) {
+                    this.showLoading(true);
+                    const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}&action=delete&id=${id}`;
+                    try {
+                        await fetch(url, { method: 'POST' });
+                        this.showLoading(false);
+                        this.showToast('Data dihapus!');
+                        this.loadModule(this.activeModule); // Reload
+                    } catch(e) {
+                        this.showLoading(false);
+                        this.showToast('Gagal menghapus', true);
+                    }
+                }
+            },
+
+            // FETCH GET
+            async fetchData(endpoint) {
+                if(APPS_SCRIPT_URL.includes("GANTI_DENGAN_URL")) { alert('TOLONG GANTI APPS_SCRIPT_URL DI KODE DENGAN URL WEB APP ANDA YANG ASLI AGAR DATABASE BERFUNGSI!'); return null; }
+                const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}`;
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error(error);
+                    return null;
+                }
             }
         };
 
-        // Initialize App on Load
         window.onload = () => app.init();
     </script>
 </body>
