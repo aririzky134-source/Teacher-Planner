@@ -121,19 +121,21 @@
         <img src="" alt="TCA Logo" class="welcome-logo" id="welcomeLogo">
         <div class="welcome-content">
             <h1>Teacher Planner 2026/2027</h1>
+            <br> </br>
             <p>Sistem perencanaan terintegrasi khusus untuk Guru Kreatif Indonesia.</p>
+            <br> </br>
             <button class="btn" onclick="app.navigate('login-screen')">Mulai Sekarang <i class="fas fa-arrow-right"></i></button>
         </div>
     </main>
 
     <main class="screen" id="login-screen">
         <div class="card login-card">
-            <h2>Portal Masuk</h2><br>
+            <h2>Silahkan Login  Terlebih Dahulu Cikgu</h2><br>
             <form onsubmit="app.handleLogin(event)">
-                <div class="input-group"><label>Nama Lengkap</label><input type="text" class="input-control" id="loginName" required></div>
-                <div class="input-group"><label>Email (Penting untuk Workspace Data)</label><input type="email" class="input-control" id="loginEmail" required></div>
-                <div class="input-group"><label>Kode Akses</label><input type="password" class="input-control" id="loginCode" required placeholder="TCA2026"></div>
-                <button type="submit" class="btn" style="width:100%; justify-content:center;">Masuk Workspace</button>
+                <div class="input-group"><label>Nama Lengkap</label><input type="text" class="input-control" id="loginName" required placeholder="Budi Santoso S.Pd"></div>
+                <div class="input-group"><label>Email (Penting untuk Workspace Data)</label><input type="email" class="input-control" id="loginEmail" required placeholder="Teachercreator@gmail.com"></div>
+                <div class="input-group"><label>Kode Akses</label><input type="password" class="input-control" id="loginCode" required placeholder="Masukkan Kode Akses"></div>
+                <button type="submit" class="btn" style="width:100%; justify-content:center;">Klik Disini Cikgu</button>
             </form>
         </div>
     </main>
@@ -142,7 +144,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="brand">
                 <img src="" alt="Logo" id="sidebarLogo">
-                <div><h3 style="font-size:1rem;">Teacher Planner</h3><span style="font-size:0.75rem; color:var(--text-secondary)">v.2.0.3 Stable</span></div>
+                <div><h3 style="font-size:1rem;">Teacher Planner</h3><span style="font-size:0.75rem; color:var(--text-secondary)">By Teacher Creator Academy</span></div>
             </div>
             <ul class="nav-menu" id="navMenu">
                 </ul>
@@ -237,7 +239,7 @@
                     localStorage.setItem('tca_session_v2', JSON.stringify(this.user));
                     document.getElementById('userNameDisplay').textContent = this.user.name;
                     
-                    this.showToast('Login berhasil! Menyusun Workspace Anda...');
+                    this.showToast('Login berhasil! Tunggu Sebentar Ya cikgu!...');
                     this.navigate('dashboard-screen');
                     this.loadModule('overview');
                 } else {
