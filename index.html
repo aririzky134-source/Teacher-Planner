@@ -134,7 +134,9 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
     <main class="screen active" id="welcome-screen">
         <img src="" alt="TCA Logo" class="welcome-logo" id="welcomeLogo">
         <div class="welcome-content">
+            <h1>Selamat datang di</h1>
             <h1>Teacher Planner 2026/2027</h1>
+            <br> </br>
             <p>Sistem perencanaan terintegrasi khusus untuk Guru Kreatif Indonesia.</p>
             <br> <br>
             <button class="btn" onclick="app.navigate('login-screen')">Mulai Sekarang <i class="fas fa-arrow-right"></i></button>
@@ -147,7 +149,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
             <form onsubmit="app.handleLogin(event)">
                 <div class="input-group"><label>Nama Lengkap</label><input type="text" class="input-control" id="loginName" required placeholder="Budi Santoso S.Pd"></div>
                 <div class="input-group"><label>Email (Penting untuk Workspace Data)</label><input type="email" class="input-control" id="loginEmail" required placeholder="Teachercreator@gmail.com"></div>
-                <div class="input-group"><label>Kode Akses</label><input type="password" class="input-control" id="loginCode" required placeholder="TCA2026"></div>
+                <div class="input-group"><label>Kode Akses</label><input type="password" class="input-control" id="loginCode" required placeholder="Masukkan Kode Akses"></div>
                 <button type="submit" class="btn" style="width:100%; justify-content:center;">Klik disini CIkgu!</button>
             </form>
         </div>
@@ -407,7 +409,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover{
 
             // FIX: Tambahkan _t (Cache Buster) dan cache: 'no-store' agar tidak tertukar datanya
             async fetchData(endpoint) {
-                if(APPS_SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycby8CvNXuyOkbIBfZ1J5RVQdwIyYfJltoC-iC7XnNZEvasP3oeFa18jDfYAlGBqmgDvq/exec")) { alert('TOLONG GANTI APPS_SCRIPT_URL DI KODE DENGAN URL WEB APP ANDA YANG ASLI AGAR DATABASE BERFUNGSI!'); return null; }
+                if(APPS_SCRIPT_URL.includes("GANTI_DENGAN_URL")) { alert('TOLONG GANTI APPS_SCRIPT_URL DI KODE DENGAN URL WEB APP ANDA YANG ASLI AGAR DATABASE BERFUNGSI!'); return null; }
                 
                 // Tambahan "_t" memaksa browser mengunduh data segar setiap request, mengabaikan memori cache sebelumnya
                 const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}&_t=${new Date().getTime()}`;
