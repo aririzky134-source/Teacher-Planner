@@ -66,25 +66,37 @@
         p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
         
         .btn { 
-            background-color: var(--primary-green); color: white; padding: 10px 20px; 
-            border-radius: var(--radius-sm); font-weight: 500; cursor: pointer; 
-            transition: var(--transition); display: inline-flex; align-items: center; 
-            gap: 8px; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+            background-color: var(--primary-green); 
+            color: white; 
+            padding: 10px 20px; 
+            border-radius: var(--radius-sm); 
+            font-weight: 500; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
         }
         .btn:hover { 
-            background-color: var(--primary-green-hover); transform: translateY(-2px);
+            background-color: var(--primary-green-hover); 
+            transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(22, 163, 74, 0.3);
         }
         .btn-outline { 
-            background-color: transparent; border: 1px solid var(--border); 
-            color: var(--text-primary); box-shadow: none;
+            background-color: transparent; 
+            border: 1px solid var(--border); 
+            color: var(--text-primary); 
+            box-shadow: none;
         }
         .btn-outline:hover { 
-            background-color: rgba(255,255,255,0.05); border-color: var(--text-secondary); 
+            background-color: rgba(255,255,255,0.05); 
+            border-color: var(--text-secondary); 
             transform: translateY(-2px);
         }
-        .btn-ghost { background: transparent; color: var(--primary-green); box-shadow: none; padding: 5px 10px; }
-        .btn-ghost:hover { background: rgba(22, 163, 74, 0.1); transform: none; border-radius: var(--radius-sm);}
+        .btn-ghost { background: transparent; color: var(--primary-green); box-shadow: none; padding: 5px 10px; cursor: pointer; transition: var(--transition); }
+        .btn-ghost:hover { background: rgba(22, 163, 74, 0.1); border-radius: var(--radius-sm); }
         
         .input-group { margin-bottom: 16px; text-align: left;}
         .input-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
@@ -96,9 +108,14 @@
         .input-control:focus { border-color: var(--accent-green); box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1); }
 
         .card { 
-            background: var(--bg-card); border: 1px solid var(--border); 
-            border-radius: var(--radius-lg); padding: 24px; transition: var(--transition); 
-            position: relative; overflow: hidden; backdrop-filter: blur(10px);
+            background: var(--bg-card); 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius-lg); 
+            padding: 24px; 
+            transition: var(--transition); 
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
         .card:hover { border-color: rgba(255,255,255,0.15); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -118,7 +135,14 @@
             position: sticky; top: 0; z-index: 50; transition: transform 0.3s ease;
         }
         
-        .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding-bottom: 4px; border-bottom: none; }
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            margin-bottom: 24px; 
+            padding-bottom: 4px; 
+            border-bottom: none;
+        }
         .brand img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
         
         .nav-menu { flex: 1; overflow-y: auto; }
@@ -209,11 +233,6 @@
         .reminder-text { flex: 1; font-size: 0.9rem; }
         .reminder-date { font-size: 0.75rem; color: var(--danger); font-weight: 500; display: block; margin-top: 4px;}
 
-        /* Animasi Todo List Checkbox */
-        .todo-quick-item.completed .todo-text { text-decoration: line-through; opacity: 0.5; }
-        .todo-quick-item.completed { opacity: 0.6; }
-        .todo-quick-checkbox { width: 20px; height: 20px; cursor: pointer; accent-color: var(--accent-green); border-radius: 4px; }
-
         .progress-container { margin-top: 10px; }
         .progress-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; color: var(--text-secondary);}
         .progress-track { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
@@ -234,6 +253,31 @@
         
         .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: var(--radius-sm); }
         @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        .score-widget { text-align: center; padding: 10px 0;}
+        .score-circle { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 8px solid; position: relative;}
+        .score-circle.good { border-color: var(--accent-green); color: var(--accent-green); box-shadow: 0 0 20px rgba(34,197,94,0.2);}
+        .score-circle.avg { border-color: var(--warning); color: var(--warning); box-shadow: 0 0 20px rgba(245,158,11,0.2);}
+        .score-circle.low { border-color: var(--danger); color: var(--danger); box-shadow: 0 0 20px rgba(239,68,68,0.2);}
+        .score-value { font-size: 2rem; font-weight: 700; line-height: 1; }
+        .score-max { font-size: 0.8rem; opacity: 0.7;}
+
+        /* CSS BARU UNTUK INTERAKTIF TO-DO LIST */
+        .todo-quick-item { 
+            display:flex; align-items:center; gap:14px; padding:12px; 
+            background:rgba(255,255,255,0.02); border-radius:var(--radius-sm); 
+            margin-bottom:8px; transition:var(--transition); 
+            border:1px solid rgba(255,255,255,0.05); 
+        }
+        .todo-quick-item:hover { background:rgba(255,255,255,0.06); }
+        .todo-quick-item.done { opacity:0.6; }
+        .todo-quick-item.done .todo-text strong { text-decoration:line-through; color:var(--text-secondary); }
+        .todo-check { 
+            cursor:pointer; font-size:1.4rem; color:var(--text-secondary); 
+            transition:var(--transition); display: flex; align-items: center; justify-content: center;
+        }
+        .todo-check:hover { color:var(--accent-green); transform:scale(1.15); }
+        .todo-check.done { color:var(--accent-green); }
 
         @media (max-width: 1200px) {
             .stat-cards-container { grid-template-columns: repeat(2, 1fr); }
@@ -267,7 +311,7 @@
     <!-- OVERLAYS -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
-        <p style="margin-top:16px; font-weight:500; letter-spacing:1px;">Memproses Data...</p>
+        <p style="margin-top:16px; font-weight:500; letter-spacing:1px;">Sinkronisasi Data...</p>
     </div>
     
     <div class="toast" id="toastBox">
@@ -283,7 +327,7 @@
         <div class="modal">
             <div class="modal-header">
                 <h3 id="modalTitle">Tambah Data</h3>
-                <button class="btn-ghost" type="button" onclick="app.closeModal()"><i class="fas fa-times" style="font-size:1.2rem;"></i></button>
+                <button class="btn-ghost" onclick="app.closeModal()"><i class="fas fa-times" style="font-size:1.2rem;"></i></button>
             </div>
             <form id="dynamicForm" onsubmit="app.saveData(event)">
                 <div id="modalFormContent"></div>
@@ -352,7 +396,6 @@
                     <span style="font-size:0.75rem; color:var(--text-secondary); font-weight:400; display: block; margin-top: 2px;">by TCA</span>
                 </div>
             </div>
-            
             <ul class="nav-menu" id="navMenu"></ul>
             
             <div style="margin-top:auto; padding-top:20px; border-top:1px solid var(--border);">
@@ -391,7 +434,7 @@
     </main>
 
     <script>
-        // MENGGUNAKAN URL BACKEND YANG SUDAH ADA (TIDAK DIUBAH)
+        // MENGGUNAKAN URL BACKEND YANG SAMA
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby5-suigC_eL4iJROUYWrm2faYuCY_pBWmcznv-jzfU_g7bNc0nfvlNHbJ11Rr87GE/exec"; 
         
         // Helper: Date Formatting
@@ -407,10 +450,10 @@
             user: { name: null, email: null, safeEmail: null },
             activeYear: '2026-2027', 
             activeModule: 'overview',
-            editingId: null, // Track state untuk fitur Edit
-            cachedData: {},  // Cache untuk optimasi UI
+            editingId: null, // Properti untuk melacak ID yang sedang di-edit
+            moduleDataCache: {}, // Cache data spesifik per tabel untuk fitur Edit
+            dashboardDataCache: {}, // Cache data dashboard (untuk aksi cepat seperti toggle To-Do)
 
-            // Definisi Data Modules (Tetap sama)
             modules: {
                 overview: { icon: 'fa-table-cells-large', title: 'Dasboard', render: 'custom' },
                 kalender: { icon: 'fa-calendar-days', title: 'Kalender Pendidikan', 
@@ -529,7 +572,6 @@
                 try {
                     const response = await fetch(url);
                     const data = await response.json();
-                    this.cachedData[endpoint] = data; // Cache data for Edit and Quick Actions
                     return data;
                 } catch (error) {
                     console.error("Gagal menarik data:", error);
@@ -537,149 +579,9 @@
                 }
             },
 
-            // FITUR BARU: Membuka modal form (Bisa untuk Create baru atau Edit)
-            openModal(moduleKey = this.activeModule, editId = null, prefillData = null) {
-                this.editingId = editId; // Simpan ID jika sedang mode edit
-                const module = this.modules[moduleKey];
-                
-                document.getElementById('modalTitle').innerHTML = editId 
-                    ? `<i class="fas fa-edit" style="color:var(--info); margin-right:8px;"></i> Edit ${module.title}` 
-                    : `<i class="fas fa-plus-circle" style="color:var(--accent-green); margin-right:8px;"></i> Tambah ${module.title}`;
-
-                let formHtml = '';
-                module.fields.forEach(f => {
-                    const val = prefillData ? (prefillData[f.id] || '') : ''; // Ambil data lama jika ada
-                    formHtml += `<div class="input-group"><label>${f.label}</label>`;
-                    
-                    if (f.type === 'textarea') {
-                        formHtml += `<textarea class="input-control" name="${f.id}" rows="3" required>${val}</textarea>`;
-                    } else if (f.type === 'select') {
-                        formHtml += `<select class="input-control" name="${f.id}" required>`;
-                        f.options.forEach(opt => {
-                            const selected = (val === opt) ? 'selected' : '';
-                            formHtml += `<option value="${opt}" ${selected}>${opt}</option>`;
-                        });
-                        formHtml += `</select>`;
-                    } else {
-                        formHtml += `<input type="${f.type}" class="input-control" name="${f.id}" value="${val}" required>`;
-                    }
-                    formHtml += `</div>`;
-                });
-
-                document.getElementById('modalFormContent').innerHTML = formHtml;
-                document.getElementById('formModalOverlay').classList.add('active');
-            },
-
-            closeModal() {
-                document.getElementById('formModalOverlay').classList.remove('active');
-                this.editingId = null; // Reset state
-                document.getElementById('dynamicForm').reset();
-            },
-
-            // Helper untuk Quick Action dari Dashboard
-            actionAndOpenModal(moduleKey) {
-                this.activeModule = moduleKey;
-                this.openModal(moduleKey);
-            },
-
-            // FITUR BARU: Menyiapkan data sebelum memanggil openModal()
-            async editData(moduleKey, id) {
-                this.showLoading(true);
-                // Menggunakan cache agar lebih cepat, fallback ke fetch jika belum ada
-                let data = this.cachedData[moduleKey];
-                if (!data) data = await this.fetchData(moduleKey);
-                
-                if(data && data[id]) {
-                    this.openModal(moduleKey, id, data[id]);
-                } else {
-                    this.showToast('Data tidak ditemukan', true);
-                }
-                this.showLoading(false);
-            },
-
-            // FITUR DIPERBARUI: Menyimpan (Insert) ATAU Memperbarui (Update) data
-            async saveData(e) {
-                e.preventDefault();
-                this.showLoading(true);
-                
-                const form = document.getElementById('dynamicForm');
-                const formData = new FormData(form);
-                const dataObj = Object.fromEntries(formData.entries());
-
-                // Payload dinamis: Jika ada editingId, backend akan melakukan proses Update
-                const payload = {
-                    endpoint: this.activeModule,
-                    action: this.editingId ? 'update' : 'insert',
-                    year: this.activeYear,
-                    email: this.user.safeEmail,
-                    data: dataObj
-                };
-                if(this.editingId) payload.id = this.editingId;
-
-                try {
-                    // MENGGUNAKAN POST standar untuk mengamankan data panjang dan hindari limit URL GET
-                    await fetch(APPS_SCRIPT_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify(payload)
-                    });
-                    
-                    this.showToast(this.editingId ? 'Data berhasil diperbarui!' : 'Data baru berhasil disimpan!', false, 'fa-check');
-                    this.closeModal();
-                    this.loadModule(this.activeModule); // Refresh tampilan
-                } catch (err) {
-                    this.showToast('Gagal memproses data ke server.', true, 'fa-times');
-                }
-                this.showLoading(false);
-            },
-
-            // FITUR DIPERBARUI: Menggunakan Custom Confirm Modal (Mencegah blocking browser alert)
-            deleteData(moduleKey, id) {
-                const modal = document.getElementById('confirmModalOverlay');
-                const cancelBtn = document.getElementById('confirmCancelBtn');
-                const actionBtn = document.getElementById('confirmActionBtn');
-                
-                modal.classList.add('active');
-                
-                // Clear old listeners
-                const newCancelBtn = cancelBtn.cloneNode(true);
-                const newActionBtn = actionBtn.cloneNode(true);
-                cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
-                actionBtn.parentNode.replaceChild(newActionBtn, actionBtn);
-
-                newCancelBtn.onclick = () => modal.classList.remove('active');
-                
-                newActionBtn.onclick = async () => {
-                    modal.classList.remove('active');
-                    this.showLoading(true);
-                    
-                    const payload = {
-                        endpoint: moduleKey,
-                        action: 'delete',
-                        id: id,
-                        year: this.activeYear,
-                        email: this.user.safeEmail
-                    };
-                    
-                    try {
-                        await fetch(APPS_SCRIPT_URL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                            body: JSON.stringify(payload)
-                        });
-                        this.showToast('Data telah dihapus', false, 'fa-trash');
-                        this.loadModule(moduleKey);
-                    } catch(e) {
-                        this.showToast('Gagal menghapus data', true);
-                    }
-                    this.showLoading(false);
-                };
-            },
-
             async loadModule(key) {
                 this.activeModule = key;
                 
-                // Update UI state
                 document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
                 document.getElementById(`nav-${key}`).classList.add('active');
                 document.getElementById('headerTitle').textContent = this.modules[key].title;
@@ -703,7 +605,7 @@
                                 <h2 style="margin-bottom:4px;">Manajemen ${this.modules[key].title}</h2>
                                 <p>Kelola dan perbarui data ${this.modules[key].title.toLowerCase()} Anda di sini.</p>
                             </div>
-                            <button class="btn" onclick="app.openModal()"><i class="fas fa-plus"></i> Tambah Data Baru</button>
+                            <button class="btn" onclick="app.openModal(false)"><i class="fas fa-plus"></i> Tambah Data Baru</button>
                         </div>
                     </div>
                     <div class="card">
@@ -725,6 +627,10 @@
                 thRow.innerHTML += `<th style="text-align:right;">Tindakan</th>`;
 
                 const data = await this.fetchData(key);
+                
+                // Simpan data di cache memori agar bisa dipakai saat tombol Edit ditekan
+                this.moduleDataCache[key] = data; 
+
                 const tBody = document.getElementById('tableBody');
                 tBody.innerHTML = '';
 
@@ -758,9 +664,9 @@
                         row += `<td>${val}</td>`; 
                     });
                     
-                    // FITUR BARU: Menambahkan tombol Edit
+                    // MENAMBAHKAN TOMBOL EDIT SEBELUM TOMBOL DELETE
                     row += `
-                        <td style="text-align:right; white-space: nowrap;">
+                        <td style="text-align:right; min-width: 100px;">
                             <button class="btn-ghost" onclick="app.editData('${key}', '${id}')" title="Edit Data"><i class="fas fa-edit" style="color:var(--info)"></i></button>
                             <button class="btn-ghost" onclick="app.deleteData('${key}', '${id}')" title="Hapus Permanen"><i class="fas fa-trash-alt" style="color:var(--danger)"></i></button>
                         </td>
@@ -769,57 +675,7 @@
                 }
             },
 
-            // FITUR BARU: Quick Action menyelesaika To-Do langsung dari Dashboard
-            async quickCompleteTodo(id, checkboxEl) {
-                if(!checkboxEl.checked) return;
-
-                // 1. Optimistic UI Update (Dopamine Hit seketika!)
-                checkboxEl.disabled = true;
-                const container = document.getElementById(`todo-item-${id}`);
-                container.classList.add('completed');
-                
-                // 2. Siapkan data update ke backend secara background
-                let currentData = this.cachedData['todo'] ? this.cachedData['todo'][id] : null;
-                
-                // Jika tidak ada di cache, kita minimal kirim update statusnya saja
-                if(!currentData) {
-                    currentData = { status: 'Selesai' }; 
-                } else {
-                    currentData.status = 'Selesai';
-                }
-
-                const payload = {
-                    endpoint: 'todo',
-                    action: 'update',
-                    id: id,
-                    year: this.activeYear,
-                    email: this.user.safeEmail,
-                    data: currentData
-                };
-
-                try {
-                    await fetch(APPS_SCRIPT_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify(payload)
-                    });
-                    this.showToast('Kerja bagus! Tugas diselesaikan.', false, 'fa-check-double');
-                    
-                    // Hapus elemen dari UI setelah delay untuk efek visual
-                    setTimeout(() => {
-                        container.style.display = 'none';
-                    }, 800);
-                } catch(e) {
-                    // Rollback jika gagal
-                    this.showToast('Koneksi terputus, gagal sinkronisasi status.', true, 'fa-times');
-                    checkboxEl.checked = false;
-                    checkboxEl.disabled = false;
-                    container.classList.remove('completed');
-                }
-            },
-
             async renderPremiumDashboard(container) {
-                // Skeleton Loader
                 container.innerHTML = `
                     <div class="dash-grid">
                         <div class="card col-12 skeleton" style="height: 120px;"></div>
@@ -845,24 +701,26 @@
                         this.fetchData('target'), this.fetchData('kalender'), this.fetchData('refleksi'), this.fetchData('konten')
                     ]);
 
-                    // Helper to convert Object to Array while keeping ID
-                    const objToArrayWithId = (obj) => {
-                        if(!obj || obj.error) return [];
-                        return Object.keys(obj).map(key => ({ id: key, ...obj[key] }));
-                    };
+                    // Simpan data di dashboard cache untuk aksi interaktif (To-Do)
+                    this.dashboardDataCache = { jadwal, todo, rapat, target, kalender, refleksi, konten };
+
+                    const safeObjValues = (obj) => obj && !obj.error ? Object.values(obj) : [];
                     
-                    const jadwalList = objToArrayWithId(jadwal);
-                    const todoList = objToArrayWithId(todo);
-                    const rapatList = objToArrayWithId(rapat);
-                    const targetList = objToArrayWithId(target);
-                    const kalenderList = objToArrayWithId(kalender);
-                    const refleksiList = objToArrayWithId(refleksi);
+                    const jadwalList = safeObjValues(jadwal);
+                    const todoList = safeObjValues(todo);
+                    const rapatList = safeObjValues(rapat);
+                    const targetList = safeObjValues(target);
+                    const kalenderList = safeObjValues(kalender);
+                    const refleksiList = safeObjValues(refleksi);
+                    const kontenList = safeObjValues(konten);
 
                     const d = new Date();
                     const dayName = days[d.getDay()];
-                    const jadwalHariIni = jadwalList.filter(j => j.hari === dayName).sort((a, b) => (a.jam || "").localeCompare(b.jam || ""));
+                    const jadwalHariIni = jadwalList.filter(j => j.hari === dayName);
+                    jadwalHariIni.sort((a, b) => (a.jam || "").localeCompare(b.jam || ""));
 
                     const todoAktif = todoList.filter(t => t.status !== 'Selesai');
+                    const todoSelesai = todoList.filter(t => t.status === 'Selesai');
                     
                     const todayDateStr = d.toISOString().split('T')[0];
                     const futureAgendas = rapatList.filter(r => r.tanggal && r.tanggal >= todayDateStr).sort((a,b) => a.tanggal.localeCompare(b.tanggal));
@@ -872,6 +730,18 @@
                         const sum = targetList.reduce((acc, curr) => acc + (parseInt(curr.progress) || 0), 0);
                         totalProgress = Math.round(sum / targetList.length);
                     }
+
+                    let score = 40; 
+                    if(jadwalList.length > 0) score += 10;
+                    if(todoList.length > 0) score += Math.round((todoSelesai.length / todoList.length) * 20);
+                    if(refleksiList.length > 0) score += 10;
+                    if(rapatList.length > 0) score += 10;
+                    if(targetList.length > 0 && totalProgress > 50) score += 10;
+                    score = Math.min(score, 100);
+
+                    let scoreColorClass = 'low';
+                    if(score >= 80) scoreColorClass = 'good';
+                    else if(score >= 50) scoreColorClass = 'avg';
 
                     let reminders = [];
                     futureAgendas.forEach(a => reminders.push({ text: `Rapat: ${a.nama}`, date: a.tanggal, type: 'agenda', icon: 'fa-users' }));
@@ -885,7 +755,9 @@
                                 <h1>Halo, ${this.user.name}</h1>
                                 <p>Selamat datang kembali. Berikut ringkasan aktivitas mengajar Anda hari ini.</p>
                             </div>
-                            <div class="welcome-avatar">${this.user.name.charAt(0).toUpperCase()}</div>
+                            <div class="welcome-avatar">
+                                ${this.user.name.charAt(0).toUpperCase()}
+                            </div>
                         </div>
                     `;
 
@@ -893,19 +765,31 @@
                         <div class="stat-cards-container col-12">
                             <div class="stat-card">
                                 <div class="stat-icon" style="color: var(--info)"><i class="fas fa-book-open"></i></div>
-                                <div class="stat-info"><h4>Jadwal Hari Ini</h4><div class="value">${jadwalHariIni.length}</div></div>
+                                <div class="stat-info">
+                                    <h4>Jadwal Hari Ini</h4>
+                                    <div class="value">${jadwalHariIni.length}</div>
+                                </div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-icon" style="color: var(--danger)"><i class="fas fa-list-check"></i></div>
-                                <div class="stat-info"><h4>To Do Aktif</h4><div class="value">${todoAktif.length}</div></div>
+                                <div class="stat-info">
+                                    <h4>To Do Aktif</h4>
+                                    <div class="value">${todoAktif.length}</div>
+                                </div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-icon" style="color: var(--warning)"><i class="fas fa-calendar-alt"></i></div>
-                                <div class="stat-info"><h4>Agenda Terdekat</h4><div class="value">${futureAgendas.length}</div></div>
+                                <div class="stat-info">
+                                    <h4>Agenda Terdekat</h4>
+                                    <div class="value">${futureAgendas.length}</div>
+                                </div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-icon" style="color: var(--accent-green)"><i class="fas fa-chart-line"></i></div>
-                                <div class="stat-info"><h4>Rata-rata Target</h4><div class="value">${totalProgress}%</div></div>
+                                <div class="stat-info">
+                                    <h4>Rata-rata Target</h4>
+                                    <div class="value">${totalProgress}%</div>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -929,16 +813,24 @@
                         </div>
                     `;
 
-                    let jadwalRows = jadwalHariIni.length === 0 
-                        ? `<div class="empty-state"><i class="fas fa-mug-hot"></i><p>Tidak ada jadwal mengajar hari ini.</p></div>`
-                        : `<div class="schedule-list">${jadwalHariIni.map(j => `
+                    let jadwalRows = '';
+                    if(jadwalHariIni.length === 0) {
+                        jadwalRows = `<div class="empty-state"><i class="fas fa-mug-hot"></i><p>Tidak ada jadwal mengajar hari ini. Waktunya fokus ke tugas lain!</p></div>`;
+                    } else {
+                        jadwalRows = `<div class="schedule-list">`;
+                        jadwalHariIni.forEach(j => {
+                            jadwalRows += `
                                 <div class="schedule-item">
                                     <div class="schedule-time"><i class="far fa-clock"></i> ${j.jam || '-'}</div>
                                     <div class="schedule-detail">
                                         <strong>${j.mapel || 'Mapel tidak diketahui'}</strong>
                                         <span>Kelas: ${j.kelas || '-'} • Ruang: ${j.ruang || '-'}</span>
                                     </div>
-                                </div>`).join('')}</div>`;
+                                </div>
+                            `;
+                        });
+                        jadwalRows += `</div>`;
+                    }
 
                     const htmlJadwal = `
                         <div class="card col-8">
@@ -950,67 +842,215 @@
                         </div>
                     `;
 
-                    let reminderRows = reminders.length === 0
-                        ? `<div class="empty-state" style="padding:10px;"><i class="far fa-bell-slash" style="font-size:1.5rem; margin-bottom:5px;"></i><p style="font-size:0.8rem;">Belum ada agenda terdekat.</p></div>`
-                        : reminders.map(r => {
+                    let reminderRows = '';
+                    if(reminders.length === 0) {
+                        reminderRows = `<div class="empty-state" style="padding:10px;"><i class="far fa-bell-slash" style="font-size:1.5rem; margin-bottom:5px;"></i><p style="font-size:0.8rem;">Belum ada agenda atau deadline terdekat.</p></div>`;
+                    } else {
+                        reminders.forEach(r => {
                             const daysDiff = Math.ceil((new Date(r.date) - new Date()) / (1000 * 60 * 60 * 24));
                             let timeText = daysDiff === 0 ? 'Hari Ini' : daysDiff === 1 ? 'Besok' : `${daysDiff} Hari Lagi`;
-                            return `
+                            if(daysDiff < 0) timeText = 'Terlewat';
+
+                            reminderRows += `
                                 <div class="reminder-item">
                                     <div class="reminder-icon"><i class="fas ${r.icon}"></i></div>
-                                    <div class="reminder-text">${r.text}<span class="reminder-date">⚠ ${timeText} (${r.date})</span></div>
-                                </div>`;
-                        }).join('');
+                                    <div class="reminder-text">
+                                        ${r.text}
+                                        <span class="reminder-date">⚠ ${timeText} (${r.date})</span>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
 
                     const htmlReminder = `
                         <div class="card col-4">
                             <div class="dash-card-header">
                                 <div class="dash-card-title"><i class="fas fa-bell" style="color:var(--warning)"></i> Reminder</div>
                             </div>
-                            <div style="display:flex; flex-direction:column;">${reminderRows}</div>
-                        </div>
-                    `;
-
-                    // FITUR BARU: Komponen Daftar To-Do Interaktif
-                    let activeTodoRows = todoAktif.length === 0
-                        ? `<div class="empty-state" style="padding:20px;"><i class="fas fa-check-double" style="font-size:2rem; color:var(--accent-green); margin-bottom:10px;"></i><p>Semua tugas selesai!</p></div>`
-                        : `<div style="display:flex; flex-direction:column; gap:10px; max-height:250px; overflow-y:auto; padding-right:5px;">${todoAktif.map(t => {
-                            const prioColor = t.prioritas === 'Tinggi' ? 'var(--danger)' : (t.prioritas === 'Sedang' ? 'var(--warning)' : 'var(--info)');
-                            return `
-                                <label class="todo-quick-item" id="todo-item-${t.id}" style="display:flex; align-items:center; gap:14px; padding:12px; background:rgba(255,255,255,0.03); border-radius:8px; border-left: 3px solid ${prioColor}; cursor:pointer; transition: var(--transition);">
-                                    <input type="checkbox" class="todo-quick-checkbox" onchange="app.quickCompleteTodo('${t.id}', this)">
-                                    <div style="flex:1;">
-                                        <div style="font-weight:500; font-size:0.95rem; transition:var(--transition);" class="todo-text">${t.tugas}</div>
-                                        <div style="font-size:0.75rem; color:var(--text-secondary); margin-top:2px;">Prioritas: ${t.prioritas}</div>
-                                    </div>
-                                </label>`;
-                        }).join('')}</div>`;
-
-                    const htmlActiveTodo = `
-                        <div class="card col-6">
-                            <div class="dash-card-header">
-                                <div class="dash-card-title"><i class="fas fa-list-check" style="color:var(--danger)"></i> Selesaikan Tugas</div>
-                                <button class="btn-ghost" onclick="app.loadModule('todo')">Semua Tugas</button>
+                            <div style="display:flex; flex-direction:column;">
+                                ${reminderRows}
                             </div>
-                            ${activeTodoRows}
                         </div>
                     `;
 
                     const htmlTarget = `
-                        <div class="card col-6">
+                        <div class="card col-4">
                             <div class="dash-card-header">
-                                <div class="dash-card-title"><i class="fas fa-bullseye" style="color:var(--accent-green)"></i> Progress Target Keseluruhan</div>
+                                <div class="dash-card-title"><i class="fas fa-bullseye" style="color:var(--accent-green)"></i> Progress Target</div>
                             </div>
-                            <div style="text-align:center; padding: 20px 0;">
-                                <h2 style="font-size:3rem; color:var(--text-primary); margin-bottom:15px;">${totalProgress}%</h2>
-                                <div class="progress-track" style="height:12px;">
-                                    <div class="progress-fill" style="width: ${totalProgress}%;"></div>
+                            <div style="text-align:center; padding: 10px 0;">
+                                <h2 style="font-size:2.5rem; color:var(--text-primary); margin-bottom:10px;">${totalProgress}%</h2>
+                                <p>Capaian Target Keseluruhan</p>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-track">
+                                    <div class="progress-fill" style="width: 0%;" id="animProgressBar"></div>
                                 </div>
                             </div>
                         </div>
                     `;
 
-                    // Merender ke Container Utama
+                    let calDaysHtml = '';
+                    for(let i=0; i<7; i++) {
+                        let currDate = new Date();
+                        currDate.setDate(currDate.getDate() - currDate.getDay() + i); 
+                        let isToday = currDate.toDateString() === new Date().toDateString();
+                        
+                        let dateStr = currDate.toISOString().split('T')[0];
+                        let hasEvent = futureAgendas.some(a => a.tanggal === dateStr) || kalenderList.some(k => k.tanggal === dateStr);
+                        
+                        calDaysHtml += `<div class="cal-day ${isToday ? 'today' : ''} ${hasEvent ? 'has-event' : ''}">${currDate.getDate()}</div>`;
+                    }
+
+                    const htmlMiniCal = `
+                        <div class="card col-4">
+                            <div class="dash-card-header">
+                                <div class="dash-card-title"><i class="far fa-calendar-alt" style="color:var(--info)"></i> Kalender Minggu Ini</div>
+                            </div>
+                            <div class="cal-grid">
+                                <div class="cal-day-name">Min</div><div class="cal-day-name">Sen</div><div class="cal-day-name">Sel</div>
+                                <div class="cal-day-name">Rab</div><div class="cal-day-name">Kam</div><div class="cal-day-name">Jum</div><div class="cal-day-name">Sab</div>
+                                ${calDaysHtml}
+                            </div>
+                            <div style="margin-top:15px; text-align:center;">
+                                <button class="btn-ghost" style="font-size:0.8rem;" onclick="app.loadModule('kalender')">Buka Kalender Penuh</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    const maxStat = Math.max(jadwalList.length, todoList.length, rapatList.length, refleksiList.length, 1);
+                    const calcW = (val) => `${Math.max((val/maxStat)*100, 5)}%`;
+                    
+                    const htmlStats = `
+                        <div class="card col-6">
+                            <div class="dash-card-header">
+                                <div class="dash-card-title"><i class="fas fa-chart-bar" style="color:var(--primary-green)"></i> Statistik Aktivitas</div>
+                            </div>
+                            <div>
+                                <div class="stat-bar-item">
+                                    <div class="stat-bar-label"><span>Jadwal Dibuat</span> <span>${jadwalList.length}</span></div>
+                                    <div class="progress-track" style="height:6px;"><div class="progress-fill" style="width:${calcW(jadwalList.length)}; background:var(--info)"></div></div>
+                                </div>
+                                <div class="stat-bar-item">
+                                    <div class="stat-bar-label"><span>To Do Dicatat</span> <span>${todoList.length}</span></div>
+                                    <div class="progress-track" style="height:6px;"><div class="progress-fill" style="width:${calcW(todoList.length)}; background:var(--danger)"></div></div>
+                                </div>
+                                <div class="stat-bar-item">
+                                    <div class="stat-bar-label"><span>Agenda Direncanakan</span> <span>${rapatList.length}</span></div>
+                                    <div class="progress-track" style="height:6px;"><div class="progress-fill" style="width:${calcW(rapatList.length)}; background:var(--warning)"></div></div>
+                                </div>
+                                <div class="stat-bar-item">
+                                    <div class="stat-bar-label"><span>Refleksi Ditulis</span> <span>${refleksiList.length}</span></div>
+                                    <div class="progress-track" style="height:6px;"><div class="progress-fill" style="width:${calcW(refleksiList.length)}; background:var(--accent-green)"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    let lastRefleksi = null;
+                    if(refleksiList.length > 0) {
+                        const sortedRef = [...refleksiList].sort((a,b) => (b.tanggal || "").localeCompare(a.tanggal || ""));
+                        lastRefleksi = sortedRef[0];
+                    }
+
+                    const htmlRefleksi = `
+                        <div class="card col-6">
+                            <div class="dash-card-header">
+                                <div class="dash-card-title"><i class="fas fa-brain" style="color:#d946ef"></i> Refleksi Terakhir</div>
+                                <button class="btn-ghost" onclick="app.loadModule('refleksi')">Lihat Semua</button>
+                            </div>
+                            ${lastRefleksi ? `
+                                <div>
+                                    <div style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:8px;">${lastRefleksi.tanggal}</div>
+                                    <p style="color:var(--text-primary); font-style:italic; margin-bottom:12px;">"Hal baik: ${lastRefleksi.baik || '-'}"</p>
+                                    <p style="font-size:0.85rem;"><span style="color:var(--warning)">Perlu perbaikan:</span> ${lastRefleksi.kurang || '-'}</p>
+                                </div>
+                            ` : `<div class="empty-state" style="padding:10px;"><i class="fas fa-pen-fancy" style="font-size:1.5rem; margin-bottom:5px;"></i><p style="font-size:0.8rem;">Belum ada refleksi yang dicatat.</p></div>`}
+                        </div>
+                    `;
+
+                    // FITUR BARU: To-Do Interaktif di Dashboard
+                    let todoQuickRows = '';
+                    // Ambil ID dan data, sort agar yang belum selesai tampil di atas
+                    const todoEntries = todo && !todo.error ? Object.entries(todo) : [];
+                    todoEntries.sort((a,b) => (a[1].status === 'Selesai' ? 1 : -1));
+                    
+                    if(todoEntries.length === 0) {
+                        todoQuickRows = `<div class="empty-state" style="padding:20px 10px;"><i class="far fa-check-circle" style="font-size:2rem; margin-bottom:8px; opacity:0.3;"></i><p style="font-size:0.85rem;">Tidak ada To-Do aktif, santai dulu Cikgu.</p></div>`;
+                    } else {
+                        // Tampilkan 4 tugas teratas
+                        todoEntries.slice(0, 4).forEach(([id, t]) => {
+                            const isDone = t.status === 'Selesai';
+                            todoQuickRows += `
+                                <div class="todo-quick-item ${isDone ? 'done' : ''}">
+                                    <div class="todo-check ${isDone ? 'done' : ''}" onclick="app.toggleTodoStatus('${id}')" title="Tandai Selesai/Belum">
+                                        <i class="${isDone ? 'fas fa-check-circle' : 'far fa-circle'}"></i>
+                                    </div>
+                                    <div class="todo-text" style="flex:1;">
+                                        <strong style="display:block; font-size:0.95rem;">${t.tugas || '-'}</strong>
+                                        <span class="badge ${t.prioritas === 'Tinggi' ? 'badge-red' : (t.prioritas === 'Sedang' ? 'badge-yellow' : 'badge-green')}" style="font-size:0.7rem; padding:2px 6px;">${t.prioritas || '-'}</span>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    const htmlInteractiveTodo = `
+                        <div class="card col-6">
+                            <div class="dash-card-header">
+                                <div class="dash-card-title"><i class="fas fa-check-square" style="color:var(--danger)"></i> Prioritas To-Do</div>
+                                <button class="btn-ghost" onclick="app.loadModule('todo')">Kelola</button>
+                            </div>
+                            <div style="display:flex; flex-direction:column;">
+                                ${todoQuickRows}
+                            </div>
+                        </div>
+                    `;
+
+                    let htmlIdeKontenRows = '';
+                    if(kontenList.length > 0) {
+                        const latestKonten = kontenList.slice(-3).reverse();
+                        latestKonten.forEach(k => {
+                            htmlIdeKontenRows += `
+                                <div style="display:flex; justify-content:space-between; align-items:center; padding:12px; background:rgba(255,255,255,0.02); border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+                                    <div style="font-weight:500;">${k.ide}</div>
+                                    <span class="badge ${k.status==='Published'?'badge-green':k.status==='Proses'?'badge-blue':'badge-yellow'}">${k.platform}</span>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        htmlIdeKontenRows = `<div class="empty-state" style="padding:10px;"><p style="font-size:0.85rem;">Belum ada ide konten.</p></div>`;
+                    }
+
+                    // Merubah Ide Konten dari col-8 menjadi col-6 agar pas di grid
+                    const htmlIdeKonten = `
+                        <div class="card col-6" style="display:flex; flex-direction:column;">
+                            <div class="dash-card-header">
+                                <div class="dash-card-title"><i class="fas fa-lightbulb" style="color:var(--warning)"></i> Ide Konten Terbaru</div>
+                                <button class="btn-ghost" onclick="app.loadModule('konten')">Lihat Semua</button>
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:8px;">
+                                ${htmlIdeKontenRows}
+                            </div>
+                        </div>
+                    `;
+
+                    const htmlScore = `
+                        <div class="card col-4" style="display:flex; flex-direction:column; justify-content:center;">
+                            <div class="dash-card-header" style="margin-bottom:10px; border-bottom:none;">
+                                <div class="dash-card-title"><i class="fas fa-tachometer-alt" style="color:var(--text-secondary)"></i> Prod. Score</div>
+                            </div>
+                            <div class="score-widget">
+                                <div class="score-circle ${scoreColorClass}">
+                                    <span class="score-value">${score}</span>
+                                    <span class="score-max">/ 100</span>
+                                </div>
+                                <p style="font-size:0.8rem; margin-top:8px;">Berdasarkan keaktifan aktivitas & To-Do.</p>
+                            </div>
+                        </div>
+                    `;
+
                     container.innerHTML = `
                         <div class="dash-grid">
                             ${htmlWelcome}
@@ -1018,23 +1058,167 @@
                             ${htmlQuickAction}
                             ${htmlJadwal}
                             ${htmlReminder}
-                            
-                            <!-- BARI BARU DENGAN FITUR INTERAKTIF -->
-                            ${htmlActiveTodo}
                             ${htmlTarget}
+                            ${htmlMiniCal}
+                            ${htmlScore}
+                            ${htmlStats}
+                            ${htmlRefleksi}
+                            ${htmlInteractiveTodo} 
+                            ${htmlIdeKonten}
                         </div>
                     `;
 
+                    setTimeout(() => {
+                        const bar = document.getElementById('animProgressBar');
+                        if(bar) bar.style.width = `${totalProgress}%`;
+                    }, 100);
+
                 } catch (error) {
-                    container.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i><h3>Gagal Memuat Dashboard</h3><p>Periksa koneksi internet Anda atau hubungi admin.</p></div>`;
+                    console.error("Dashboard Render Error:", error);
+                    container.innerHTML = `<div class="card col-12"><div class="empty-state"><i class="fas fa-exclamation-triangle" style="color:var(--danger)"></i><h3>Gagal Memuat Dashboard</h3><p>Terjadi kesalahan saat menarik data. Silakan refresh halaman.</p></div></div>`;
                 }
+            },
+
+            async actionAndOpenModal(moduleKey) {
+                await this.loadModule(moduleKey);
+                this.openModal(false);
+            },
+
+            // Parameter isEdit ditambahkan untuk membedakan mode Buat Baru vs Update
+            openModal(isEdit = false) {
+                if(!isEdit) this.editingId = null; // Reset form jika mode "Buat Baru"
+                
+                const mod = this.modules[this.activeModule];
+                document.getElementById('modalTitle').textContent = `${isEdit ? 'Edit Data' : 'Tambah Data'} ${mod.title}`;
+                
+                const form = document.getElementById('modalFormContent');
+                form.innerHTML = '';
+                
+                mod.fields.forEach(f => {
+                    let inputHtml = '';
+                    if(f.type === 'select') {
+                        let opts = f.options.map(o => `<option value="${o}">${o}</option>`).join('');
+                        inputHtml = `<select id="field_${f.id}" class="input-control" required>${opts}</select>`;
+                    } else if (f.type === 'textarea') {
+                        inputHtml = `<textarea id="field_${f.id}" class="input-control" rows="3" required></textarea>`;
+                    } else {
+                        inputHtml = `<input type="${f.type}" id="field_${f.id}" class="input-control" required>`;
+                    }
+                    form.innerHTML += `<div class="input-group"><label>${f.label}</label>${inputHtml}</div>`;
+                });
+                
+                document.getElementById('formModalOverlay').classList.add('active');
+            },
+
+            closeModal() { 
+                document.getElementById('formModalOverlay').classList.remove('active'); 
+                document.getElementById('dynamicForm').reset(); 
+                this.editingId = null; // Clean up
+            },
+
+            // FUNGSI BARU UNTUK MENGISI FORM EDIT
+            editData(key, id) {
+                this.activeModule = key;
+                this.openModal(true); // Buka modal dalam mode Edit
+                this.editingId = id;  // Set ID yang sedang diedit setelah modal disiapkan
+                
+                // Ambil data lama dari cache berdasarkan ID
+                const item = this.moduleDataCache[key][id]; 
+                
+                // Isi form otomatis dengan data lama
+                if(item) {
+                    this.modules[key].fields.forEach(f => {
+                        const el = document.getElementById(`field_${f.id}`);
+                        if(el) el.value = item[f.id] || '';
+                    });
+                }
+            },
+
+            // MENGUBAH FUNGSI SAVEDATA AGAR BISA HANDLE CREATE DAN UPDATE
+            async saveData(e) {
+                e.preventDefault();
+                const mod = this.modules[this.activeModule];
+                let payload = {};
+                
+                mod.fields.forEach(f => { payload[f.id] = document.getElementById(`field_${f.id}`).value; });
+                
+                // Cek mode: jika ada editingId maka ini operasi Update, jika null maka Create
+                const isUpdate = this.editingId !== null; 
+                const actionParam = isUpdate ? 'update' : 'create';
+                const idParam = isUpdate ? `&id=${this.editingId}` : '';
+
+                this.closeModal();
+                this.showLoading(true);
+                
+                // Memanggil endpoint backend tanpa mengubah struktur URL asli
+                const url = `${APPS_SCRIPT_URL}?endpoint=${this.activeModule}&year=${this.activeYear}&email=${this.user.safeEmail}&action=${actionParam}${idParam}`;
+                try {
+                    await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
+                    this.showLoading(false);
+                    this.showToast(isUpdate ? 'Data berhasil diperbarui!' : 'Data berhasil ditambahkan!');
+                    this.loadModule(this.activeModule); 
+                } catch(err) {
+                    this.showLoading(false);
+                    this.showToast('Koneksi Gagal. Coba lagi.', true, 'fa-wifi');
+                }
+            },
+
+            // FITUR BARU: MENGUBAH STATUS TO-DO LANGSUNG DARI DASHBOARD
+            async toggleTodoStatus(id) {
+                if(!this.dashboardDataCache.todo || !this.dashboardDataCache.todo[id]) return;
+                
+                const todoItem = this.dashboardDataCache.todo[id];
+                // Toggle status secara optimistik
+                const newStatus = todoItem.status === 'Selesai' ? 'Belum Selesai' : 'Selesai';
+                todoItem.status = newStatus;
+                
+                this.showLoading(true);
+                
+                const url = `${APPS_SCRIPT_URL}?endpoint=todo&year=${this.activeYear}&email=${this.user.safeEmail}&action=update&id=${id}`;
+                try {
+                    // Mengirim payload penuh yang statusnya sudah diubah
+                    await fetch(url, { method: 'POST', body: JSON.stringify(todoItem) });
+                    this.showLoading(false);
+                    this.showToast(newStatus === 'Selesai' ? 'Hebat! Satu To-Do selesai!' : 'To-Do dikembalikan ke Belum Selesai', false, 'fa-check-circle');
+                    
+                    // Muat ulang dashboard untuk merefleksikan score produktivitas dan urutan list
+                    this.loadModule('overview'); 
+                } catch(e) {
+                    this.showLoading(false);
+                    this.showToast('Gagal mengubah status', true, 'fa-times');
+                }
+            },
+
+            async deleteData(endpoint, id) {
+                const overlay = document.getElementById('confirmModalOverlay');
+                const cancelBtn = document.getElementById('confirmCancelBtn');
+                const confirmBtn = document.getElementById('confirmActionBtn');
+                
+                overlay.classList.add('active');
+                
+                cancelBtn.onclick = () => {
+                    overlay.classList.remove('active');
+                };
+                
+                confirmBtn.onclick = async () => {
+                    overlay.classList.remove('active');
+                    this.showLoading(true);
+                    
+                    const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}&action=delete&id=${id}`;
+                    try {
+                        await fetch(url, { method: 'POST' });
+                        this.showLoading(false);
+                        this.showToast('Data berhasil dihapus.', false, 'fa-trash');
+                        this.loadModule(this.activeModule); 
+                    } catch(e) {
+                        this.showLoading(false);
+                        this.showToast('Gagal menghapus data.', true, 'fa-exclamation-circle');
+                    }
+                };
             }
         };
 
-        // Initialize App
-        window.onload = () => {
-            app.init();
-        };
+        window.onload = () => app.init();
     </script>
 </body>
 </html>
