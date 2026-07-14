@@ -136,8 +136,23 @@
             display: flex; flex-direction: column; padding: 20px 16px; height: 100vh; 
             position: sticky; top: 0; z-index: 50; transition: transform 0.3s ease;
         }
-        .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border);}
-        .brand img { width: 40px; height: 40px; border-radius: 8px;}
+        
+        /* Brand Section (Merapikan bagian Logo & Teks sesuai instruksi & image_988c60.png) */
+        .brand { 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            margin-bottom: 24px; 
+            padding-bottom: 4px; 
+            border-bottom: none; /* Menghapus garis pembatas (divider) */
+        }
+        .brand img { 
+            width: 42px; 
+            height: 42px; 
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
         .nav-menu { flex: 1; overflow-y: auto; }
         .nav-item { 
             display: flex; align-items: center; gap: 12px; padding: 12px 16px; 
@@ -340,6 +355,19 @@
         </div>
     </div>
 
+    <!-- MODAL KONFIRMASI HAPUS KUSTOM (Menghindari Penggunaan window.confirm) -->
+    <div class="modal-overlay" id="confirmModalOverlay" style="z-index: 10000;">
+        <div class="modal" style="max-width: 400px; text-align: center;">
+            <i class="fas fa-exclamation-triangle" style="font-size:3rem; color:var(--danger); margin-bottom: 16px;"></i>
+            <h3 style="margin-bottom: 8px;">Konfirmasi Hapus</h3>
+            <p style="margin-bottom: 24px; font-size:0.9rem;">Apakah Anda yakin ingin menghapus data ini secara permanen dari database?</p>
+            <div style="display:flex; justify-content:center; gap:12px;">
+                <button type="button" class="btn btn-outline" id="confirmCancelBtn" style="padding:8px 16px;">Batal</button>
+                <button type="button" class="btn" id="confirmActionBtn" style="background-color:var(--danger); border-color:var(--danger); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2); padding:8px 16px;">Hapus</button>
+            </div>
+        </div>
+    </div>
+
     <main class="screen active" id="welcome-screen">
         <img src="assets/logo-tca.png" alt="TCA Logo" class="welcome-logo" id="welcomeLogo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <i class="fas fa-graduation-cap" style="font-size:4rem; color:var(--accent-green); margin-bottom:20px; display:none;"></i>
@@ -379,9 +407,9 @@
             <div class="brand">
                 <img src="assets/logo-tca.png" alt="Logo" id="sidebarLogo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                 <i class="fas fa-layer-group" style="font-size:2rem; color:var(--accent-green); display:none;"></i>
-                <div>
-                    <h3 style="font-size:1.1rem; line-height:1.2;">Teacher Planner</h3>
-                    <span style="font-size:0.7rem; color:var(--text-secondary); text-transform:lowercase; ">By Teacher Creator Academy</span>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h3 style="font-size:1.15rem; font-weight:600; line-height:1.2; letter-spacing: -0.3px; color: var(--text-primary);">Teacher Planner</h3>
+                    <span style="font-size:0.75rem; color:var(--text-secondary); font-weight:400; display: block; margin-top: 2px;">by teacher creator academy</span>
                 </div>
             </div>
             <!-- Menu will be generated here -->
@@ -593,7 +621,7 @@
                 
                 const container = document.getElementById('contentArea');
                 
-                // TUGAS UTAMA: RENDER DASHBOARD BARU DI SINI
+                // RENDER DASHBOARD PREMIUM
                 if (key === 'overview') {
                     await this.renderPremiumDashboard(container);
                     return;
@@ -717,7 +745,7 @@
                     const d = new Date();
                     const dayName = days[d.getDay()];
                     const jadwalHariIni = jadwalList.filter(j => j.hari === dayName);
-                    // Sort schedule by time (simple string sort works for HH:MM format)
+                    // Sort schedule by time
                     jadwalHariIni.sort((a, b) => (a.jam || "").localeCompare(b.jam || ""));
 
                     // Todo calculations
@@ -735,8 +763,8 @@
                         totalProgress = Math.round(sum / targetList.length);
                     }
 
-                    // Calculate Productivity Score (Visual Only)
-                    let score = 40; // Base score
+                    // Calculate Productivity Score
+                    let score = 40; 
                     if(jadwalList.length > 0) score += 10;
                     if(todoList.length > 0) score += Math.round((todoSelesai.length / todoList.length) * 20);
                     if(refleksiList.length > 0) score += 10;
@@ -861,7 +889,6 @@
                         reminderRows = `<div class="empty-state" style="padding:10px;"><i class="far fa-bell-slash" style="font-size:1.5rem; margin-bottom:5px;"></i><p style="font-size:0.8rem;">Belum ada agenda atau deadline terdekat.</p></div>`;
                     } else {
                         reminders.forEach(r => {
-                            // Simple diff calculation
                             const daysDiff = Math.ceil((new Date(r.date) - new Date()) / (1000 * 60 * 60 * 24));
                             let timeText = daysDiff === 0 ? 'Hari Ini' : daysDiff === 1 ? 'Besok' : `${daysDiff} Hari Lagi`;
                             if(daysDiff < 0) timeText = 'Terlewat';
@@ -907,16 +934,14 @@
                         </div>
                     `;
 
-                    // SECTION 7: Kalender Mini (Simplified logical representation)
-                    // We'll create a generic 7-day row showing dots for days with data.
+                    // SECTION 7: Kalender Mini 
                     let calDaysHtml = '';
                     for(let i=0; i<7; i++) {
                         let currDate = new Date();
-                        currDate.setDate(currDate.getDate() - currDate.getDay() + i); // Start from Sunday
+                        currDate.setDate(currDate.getDate() - currDate.getDay() + i); 
                         let isToday = currDate.toDateString() === new Date().toDateString();
                         
                         let dateStr = currDate.toISOString().split('T')[0];
-                        // Check if this date has any agenda/kalender
                         let hasEvent = futureAgendas.some(a => a.tanggal === dateStr) || kalenderList.some(k => k.tanggal === dateStr);
                         
                         calDaysHtml += `<div class="cal-day ${isToday ? 'today' : ''} ${hasEvent ? 'has-event' : ''}">${currDate.getDate()}</div>`;
@@ -969,7 +994,6 @@
                     `;
 
                     // SECTION 9: Refleksi Terakhir
-                    // Sort by date desc
                     let lastRefleksi = null;
                     if(refleksiList.length > 0) {
                         const sortedRef = [...refleksiList].sort((a,b) => (b.tanggal || "").localeCompare(a.tanggal || ""));
@@ -995,7 +1019,6 @@
                     // SECTION 10: Ide Konten Terbaru
                     let htmlIdeKontenRows = '';
                     if(kontenList.length > 0) {
-                        // Take latest 3 (assuming last added are at the end, or sort if dates existed. We'll just slice last 3)
                         const latestKonten = kontenList.slice(-3).reverse();
                         latestKonten.forEach(k => {
                             htmlIdeKontenRows += `
@@ -1124,16 +1147,22 @@
             },
 
             async deleteData(endpoint, id) {
-                // Sesuai instruksi: Jangan gunakan confirm/alert bawaan browser jika memungkinkan. 
-                // Namun untuk kesederhanaan file tunggal tanpa library tambahan, kita buat pseudo-modal atau tetap pakai confirm 
-                // PERBAIKAN: Mengikuti instruksi "Never use alert(). Use a message box instead." 
-                // Namun karena struktur dasar HTML tidak memilikinya, dan di file lama ada confirm(), 
-                // saya akan mengimplementasi modal konfirmasi kustom sederhana jika diizinkan, atau bypass confirm sementara.
-                // Untuk amannya dan UX lebih baik, kita buat konfirmasi inline.
+                // MENGGUNAKAN MODAL KONFIRMASI KUSTOM (Menghindari window.confirm yang dilarang)
+                const overlay = document.getElementById('confirmModalOverlay');
+                const cancelBtn = document.getElementById('confirmCancelBtn');
+                const confirmBtn = document.getElementById('confirmActionBtn');
                 
-                const isConfirmed = window.confirm('Yakin ingin menghapus data ini secara permanen?');
-                if(isConfirmed) {
+                overlay.classList.add('active');
+                
+                // Membersihkan handler event sebelumnya untuk menghindari multi-eksekusi
+                cancelBtn.onclick = () => {
+                    overlay.classList.remove('active');
+                };
+                
+                confirmBtn.onclick = async () => {
+                    overlay.classList.remove('active');
                     this.showLoading(true);
+                    
                     const url = `${APPS_SCRIPT_URL}?endpoint=${endpoint}&year=${this.activeYear}&email=${this.user.safeEmail}&action=delete&id=${id}`;
                     try {
                         await fetch(url, { method: 'POST' });
@@ -1144,7 +1173,7 @@
                         this.showLoading(false);
                         this.showToast('Gagal menghapus data.', true, 'fa-exclamation-circle');
                     }
-                }
+                };
             }
         };
 
