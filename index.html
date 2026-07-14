@@ -376,13 +376,24 @@
 
     <main class="screen" id="dashboard-screen">
         <aside class="sidebar" id="sidebar">
-            <div class="brand">
-                <img src="assets/logo-tca.png" alt="Logo" id="sidebarLogo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <i class="fas fa-layer-group" style="font-size:2rem; color:var(--accent-green); display:none;"></i>
-                <div>
-                    <h3 style="font-size:1.1rem; line-height:1.2;">Teacher Planner</h3>
-                    <span style="font-size:0.7rem; color:var(--primary); text-transform:lowercase; ">By Teacher Creator Academy</span>
-                </div>
+            <div class="brand" style="display:flex; align-items:center; gap:0;">
+    <img src="assets/logo-tca.png" 
+         alt="Logo" 
+         id="sidebarLogo"
+         style="width:40px; height:40px; margin:0;"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+
+    <i class="fas fa-layer-group" 
+       style="font-size:2rem; color:var(--accent-green); display:none;"></i>
+
+    <div style="margin-left:0;">
+        <h3 style="font-size:1.1rem; line-height:1.2; margin:0;">
+            Teacher Planner
+        </h3>
+        <span style="font-size:0.7rem; color:var(--primary); text-transform:lowercase;">
+            By Teacher Creator Academy
+        </span>
+    </div>
             </div>
             <!-- Menu will be generated here -->
             <ul class="nav-menu" id="navMenu"></ul>
